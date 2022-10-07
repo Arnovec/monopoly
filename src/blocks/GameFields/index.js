@@ -1,3 +1,4 @@
+import React from 'react';
 import FieldAngel from "./Field/FieldAngel"
 import FieldPlace from "./Field/FieldPlace"
 import FieldWithImg from "./Field/FieldWithImg"
