@@ -22,8 +22,6 @@
       "react-app",
       "react-app/jest"
     ],
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off"
   },
   "browserslist": {
     "production": [
