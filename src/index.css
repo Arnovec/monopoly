@@ -1,0 +1,136 @@
+.game {
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.field {
+  box-sizing: border-box;
+  width: 200px;
+  height: 300px;
+  background-color: orange;
+  border: 1px solid black;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.field_side {
+  display: flex;
+  width: 300px;
+  height: 200px;
+}
+
+.angel {
+  width: 300px;
+}
+
+.color {
+  height: 85px;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid black;
+}
+
+.color_left {
+  width: 85px;
+  height: 100%;
+  background-color: #fff;
+  border-left: 1px solid black;
+}
+
+.color_right {
+  width: 85px;
+  height: 100%;
+  background-color: #fff;
+  border-right: 1px solid black;
+}
+
+.field_info {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.field_info_left {
+  display: flex;
+  flex-direction: column;
+  width: 215px;
+  justify-content: space-between;
+  transform: rotate(90deg);
+}
+
+.field_info_right {
+  display: flex;
+  flex-direction: column;
+  width: 215px;
+  justify-content: space-between;
+  transform: rotate(270deg);
+}
+
+.field_with_img {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.field_with_img_left {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  transform: rotate(90deg);
+}
+
+.field_with_img_right{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  transform: rotate(270deg);
+}
+
+.field_img_container{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.name,
+.cost {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 10px;
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+}
+
+.field_img {
+  width: 150px;
+  height: 200px;
+}
+
+.big_place {
+  flex: 1;
+  background-color: orange;
+}
+
+#igrok_1 {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: red;
+}
