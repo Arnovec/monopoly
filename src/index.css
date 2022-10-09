@@ -28,6 +28,8 @@
   display: flex;
   width: 300px;
   height: 200px;
+  justify-content: center;
+  align-items: center;
 }
 
 .angel {
@@ -41,24 +43,11 @@
   border-bottom: 1px solid black;
 }
 
-.color_left {
-  width: 85px;
-  height: 100%;
-  background-color: #fff;
-  border-left: 1px solid black;
-}
-
-.color_right {
-  width: 85px;
-  height: 100%;
-  background-color: #fff;
-  border-right: 1px solid black;
-}
-
 .field_info {
   display: flex;
   flex-direction: column;
-  height: 200px;
+  height: 210px;
+  width: 200px;
   justify-content: space-between;
   align-items: center;
 }
@@ -82,8 +71,9 @@
 .field_with_img {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  justify-content: center;
   align-items: center;
+  width: 200px;
 }
 
 .left {

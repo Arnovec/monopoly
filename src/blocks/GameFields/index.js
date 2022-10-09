@@ -1,14 +1,9 @@
 import React from 'react';
 import FieldAngel from "./Field/FieldAngel"
-import FieldPlace from "./Field/FieldPlace"
 import Field from './Field/Field';
-import FieldWithImg from "./Field/FieldWithImg"
-import LeftFieldPlace from "./Field/LeftFieldPlace"
-import LeftFieldWithImg from "./Field/LeftFieldWithImg"
-import RigthFieldPlace from "./Field/RigthFieldPlace"
-import RigthFieldWithImg from "./Field/RigthFieldWithImg"
 import ImgContent from './Field/ImgContent';
 import StreetContent from './Field/StreetContent';
+import Realtyes from './Realtyes';
 
 export default function GameFields() {
     const placeFieldIds = [1, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39];
@@ -21,14 +16,14 @@ export default function GameFields() {
     for (let i = 21; i < 30; i++) {
         if (placeFieldIds.includes(i)) {
             upFieldsrow.push(
-                <Field direction="" key={i} name={`Место ${i}`} cost="Цена">
-                    <StreetContent key={i} name={`Место ${i}`} cost="Цена"/>
+                <Field direction="">
+                    <StreetContent key={i} name={`${Realtyes[1].streeatName}`} cost={Realtyes[1].costCard}/>
                 </Field>
             )
         } else if (FieldWithImgIds.includes(i)) {
             upFieldsrow.push(
-                <Field direction="" key={i} name={`Место ${i}`} cost="Цена">
-                    <ImgContent key={i} name={`Место ${i}`} cost="Цена"/>
+                <Field direction="">
+                    <ImgContent key={i} name={`${Realtyes[1].streeatName}`} cost={Realtyes[1].costCard}/>
                 </Field>
             )
         }
@@ -36,14 +31,14 @@ export default function GameFields() {
     for (let i = 9; i > 0; i--) {
         if (placeFieldIds.includes(i)) {
             downFieldsrow.push(
-                <Field direction="" key={i} name={`Место ${i}`} cost="Цена">
-                    <StreetContent key={i} name={`Место ${i}`} cost="Цена"/>
+                <Field direction="" key={i}>
+                    <StreetContent key={i} name={`${Realtyes[1].streeatName}`} cost={Realtyes[1].costCard}/>
                 </Field>
             )
         } else if (FieldWithImgIds.includes(i)) {
             downFieldsrow.push(
-                <Field direction="" key={i} name={`Место ${i}`} cost="Цена">
-                    <StreetContent key={i} name={`Место ${i}`} cost="Цена"/>
+                <Field direction="" key={i}>
+                    <ImgContent key={i} name={`${Realtyes[1].streeatName}`} cost={Realtyes[1].costCard}/>
                 </Field>
             )
         }
@@ -51,23 +46,31 @@ export default function GameFields() {
     for (let i = 19; i > 10; i--) {
         if (placeFieldIds.includes(i)) {
             leftFieldsrow.push(
-                <Field direction="left" key={i} name={`Место ${i}`} cost="Цена">
-                    <StreetContent key={i} name={`Место ${i}`} cost="Цена"/>
+                <Field direction="left" key={i}>
+                    <StreetContent key={i} name={`${Realtyes[1].streeatName}`} cost={Realtyes[1].costCard}/>
                 </Field>
             )
         } else if (FieldWithImgIds.includes(i)) {
             leftFieldsrow.push(
-                <Field direction="left" key={i} name={`Место ${i}`} cost="Цена">
-                    <StreetContent key={i} name={`Место ${i}`} cost="Цена"/>
+                <Field direction="left" key={i}>
+                    <ImgContent key={i} name={`${Realtyes[1].streeatName}`} cost={Realtyes[1].costCard}/>
                 </Field>
             )
         }
     }
     for (let i = 31; i < 40; i++) {
         if (placeFieldIds.includes(i)) {
-            rigthFieldsrow.push(<RigthFieldPlace key={i} name={`Место ${i}`} cost="Цена" />)
+            rigthFieldsrow.push(
+                <Field direction="right" key={i}>
+                    <StreetContent key={i} name={`${Realtyes[1].streeatName}`} cost={Realtyes[1].costCard}/>
+                </Field>
+            )
         } else if (FieldWithImgIds.includes(i)) {
-            rigthFieldsrow.push(<RigthFieldWithImg key={i} name={`Место ${i}`} cost="Цена" />)
+            rigthFieldsrow.push(
+                <Field direction="right" key={i}>
+                    <ImgContent key={i} name={`${Realtyes[1].streeatName}`} cost={Realtyes[1].costCard}/>
+                </Field>
+            )
         }
     }
 
