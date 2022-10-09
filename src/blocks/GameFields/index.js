@@ -1,11 +1,14 @@
 import React from 'react';
 import FieldAngel from "./Field/FieldAngel"
 import FieldPlace from "./Field/FieldPlace"
+import Field from './Field/Field';
 import FieldWithImg from "./Field/FieldWithImg"
 import LeftFieldPlace from "./Field/LeftFieldPlace"
 import LeftFieldWithImg from "./Field/LeftFieldWithImg"
 import RigthFieldPlace from "./Field/RigthFieldPlace"
 import RigthFieldWithImg from "./Field/RigthFieldWithImg"
+import ImgContent from './Field/ImgContent';
+import StreetContent from './Field/StreetContent';
 
 export default function GameFields() {
     const placeFieldIds = [1, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39];
@@ -17,23 +20,47 @@ export default function GameFields() {
     const rigthFieldsrow = [];
     for (let i = 21; i < 30; i++) {
         if (placeFieldIds.includes(i)) {
-            upFieldsrow.push(<FieldPlace key={i} name={`Место ${i}`} cost="Цена" />)
+            upFieldsrow.push(
+                <Field direction="" key={i} name={`Место ${i}`} cost="Цена">
+                    <StreetContent key={i} name={`Место ${i}`} cost="Цена"/>
+                </Field>
+            )
         } else if (FieldWithImgIds.includes(i)) {
-            upFieldsrow.push(<FieldWithImg key={i} name={`Место ${i}`} cost="Цена" />)
+            upFieldsrow.push(
+                <Field direction="" key={i} name={`Место ${i}`} cost="Цена">
+                    <ImgContent key={i} name={`Место ${i}`} cost="Цена"/>
+                </Field>
+            )
         }
     }
     for (let i = 9; i > 0; i--) {
         if (placeFieldIds.includes(i)) {
-            downFieldsrow.push(<FieldPlace key={i} name={`Место ${i}`} cost="Цена" />)
+            downFieldsrow.push(
+                <Field direction="" key={i} name={`Место ${i}`} cost="Цена">
+                    <StreetContent key={i} name={`Место ${i}`} cost="Цена"/>
+                </Field>
+            )
         } else if (FieldWithImgIds.includes(i)) {
-            downFieldsrow.push(<FieldWithImg key={i} name={`Место ${i}`} cost="Цена" />)
+            downFieldsrow.push(
+                <Field direction="" key={i} name={`Место ${i}`} cost="Цена">
+                    <StreetContent key={i} name={`Место ${i}`} cost="Цена"/>
+                </Field>
+            )
         }
     }
     for (let i = 19; i > 10; i--) {
         if (placeFieldIds.includes(i)) {
-            leftFieldsrow.push(<LeftFieldPlace key={i} name={`Место ${i}`} cost="Цена" />)
+            leftFieldsrow.push(
+                <Field direction="left" key={i} name={`Место ${i}`} cost="Цена">
+                    <StreetContent key={i} name={`Место ${i}`} cost="Цена"/>
+                </Field>
+            )
         } else if (FieldWithImgIds.includes(i)) {
-            leftFieldsrow.push(<LeftFieldWithImg key={i} name={`Место ${i}`} cost="Цена" />)
+            leftFieldsrow.push(
+                <Field direction="left" key={i} name={`Место ${i}`} cost="Цена">
+                    <StreetContent key={i} name={`Место ${i}`} cost="Цена"/>
+                </Field>
+            )
         }
     }
     for (let i = 31; i < 40; i++) {
