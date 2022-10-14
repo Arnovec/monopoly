@@ -1,8 +1,10 @@
 .game {
   display: flex;
   justify-content: center;
-  width: fit-content;
-  height: fit-content;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 .row {
@@ -12,6 +14,54 @@
 .column {
   display: flex;
   flex-direction: column;
+}
+
+.players_menu {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+}
+
+.players_menu_card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: gray;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.players_menu_money {
+  display: flex;
+  height: 40px;
+  padding: 0 10px;
+  align-items: center;
+}
+
+.players_menu_money img {
+  height: 30px;
+}
+
+.players_menu_money p {
+  margin: 0 0 0 5px;
+  font-size: 25px;
+}
+
+.players_menu_prison_card {
+  display: flex;
+  height: 25px;
+  padding: 0 10px;
+  align-items: center;
+}
+
+.players_menu_prison_card img {
+  height: 25px;
+}
+
+.players_menu_prison_card p {
+  margin: 0 0 0 5px;
+  font-size: 15px;
 }
 
 .field {
@@ -55,7 +105,7 @@
 .field_info_left {
   display: flex;
   flex-direction: column;
-  width: 215px;
+  /* width: 215px; */
   justify-content: space-between;
   transform: rotate(90deg);
 }
@@ -63,7 +113,7 @@
 .field_info_right {
   display: flex;
   flex-direction: column;
-  width: 215px;
+  /* width: 215px; */
   justify-content: space-between;
   transform: rotate(270deg);
 }
@@ -73,7 +123,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 200px;
+  /* width: 200px; */
 }
 
 .left {
@@ -84,7 +134,7 @@
   transform: rotate(270deg);
 }
 
-.field_img_container{
+.field_img_container {
   display: flex;
   width: 100%;
   justify-content: center;
@@ -108,11 +158,4 @@
 .big_place {
   flex: 1;
   background-color: orange;
-}
-
-#igrok_1 {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: red;
 }
