@@ -1,10 +1,12 @@
 import React from 'react';
-export default function Field(){
-    const qwe = 123;
+import PlayersContainer from './PlayersContainer';
+
+export default function Field(props){
+
     
     return(
-        <div className="field angel">
-
+        <div className="field field_angel">
+            <PlayersContainer {...props}/>
         </div>
     )
 }

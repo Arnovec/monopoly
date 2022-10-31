@@ -27,7 +27,7 @@ export default function PlayersMenu() {
 
     return (
         <div className="players_menu">
-            {players.map(elem => <Player {...elem} />)}
+            {players.map(elem => <Player key={`Player ${elem.playerFigure}`} {...elem} />)}
         </div>
     )
 }
