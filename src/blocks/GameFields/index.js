@@ -11,10 +11,10 @@ import './style.css';
 // показ popovera
 // информация с микросервиса
 
-export default function GameFields() {
-    //отображение дополнительной информации о имуществе
-    const [showingPopoverId, showPopover] = useState(undefined);
- 
+
+
+export default function GameFields(props) {
+const [showingPopoverId, showPopover] = useState(undefined);
     //возможность отдалять и приближать игровое поле
     const [scale, setScale] = useState(1);
 
@@ -32,6 +32,7 @@ export default function GameFields() {
 
     // отслеживание позиций игроков
     const [players, setPlayers] = useState(players_data);
+//  const [players, setPlayers] = useState(props.players);
     const [playersPosition, setPlayersPosition] = useState([]);
     useEffect(() => {
         const newPlayersPosition = [];
