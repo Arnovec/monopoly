@@ -2,19 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { motion } from "framer-motion";
 import FieldAngel from "./Field/FieldAngel"
 import Field from './Field/Field';
-import ImgContent from './Field/ImgContent';
-import StreetContent from './Field/StreetContent';
 import Realtyes from './../../data/Realtyes';
 import players_data from './../../data/Players';
+import './style.css';
+
+//для поля
+// id
+// показ popovera
+// информация с микросервиса
 
 export default function GameFields() {
+    //отображение дополнительной информации о имуществе
+    const [showingPopoverId, showPopover] = useState(undefined);
+ 
     //возможность отдалять и приближать игровое поле
     const [scale, setScale] = useState(1);
 
     useEffect(() => {
         document.addEventListener("wheel", (event) => {
             const delta = event.deltaY || event.detail;
-            console.log(scale)
             if (delta < 0) {
                 setScale(prev => prev < 1 ? prev + 0.1 : prev);
             }
@@ -50,26 +56,29 @@ export default function GameFields() {
         let newField;
         let direction = "";
 
-        if( i > 10 && i < 20){
+        if( i > 0 && i < 10){
+            direction = "buttom";
+        }else if( i > 10 && i < 20){
             direction = "left";
+        }else if( i > 20 && i < 30){
+            direction = "top";
         }else if( i > 30 && i < 40){
             direction = "right";
         }
 
+        Realtyes[1].position = i;//Костыль
+        const fieldData = {
+            ...Realtyes[1],
+            direction,
+            players: playersPosition[i],
+            isShowPopover: showingPopoverId === i,
+            showPopover,
+        }
+
         if(i%10 == 0){
             newField = <FieldAngel players={playersPosition[i]}/>;
-        }else if(placeFieldIds.includes(i)){
-            newField = 
-                <Field key={`Field ${i}`} direction={direction} players={playersPosition[i]}>
-                    <StreetContent  name={`${Realtyes[1].streeatName} ${i}`} cost={Realtyes[1].costCard} />
-                </Field>;
-        } else if(FieldWithImgIds.includes(i)){
-            newField = 
-                <Field key={`Field ${i}`} direction={direction} players={playersPosition[i]}>
-                    <ImgContent  name={`${Realtyes[1].streeatName} ${i}`} cost={Realtyes[1].costCard} />
-                </Field>;
-        } else {
-            console.log("Ошибка с полями: выбор реакт элемента");
+        }else {
+            newField = <Field key={`Field ${i}`} {...fieldData}/>;
         }
 
         if( i >= 0 && i <= 10){
@@ -81,7 +90,7 @@ export default function GameFields() {
         }else if( i > 30 && i < 40){
             rigthFieldsrow.push(newField);
         }else {
-            console.log("Ошибка с полями: отображение элемента");
+            console.log("Ошибка с полями: позиция элемента");
         }
     }
 
@@ -100,6 +109,10 @@ export default function GameFields() {
                     left: -450 * scale,
                     right: 650 * scale,
                     bottom: 850 * scale,
+                    // top: -1500 * scale,
+                    // left: -1500 * scale,
+                    // right: 1500 * scale,
+                    // bottom: 1500 * scale,
                 }}
             >
                 <div className="row">

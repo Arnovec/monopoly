@@ -1,6 +1,6 @@
 const Realtyes = {
     1: {
-        postion: 1,
+        position: 1,
         streeatName: "Test",
         owner: "Car",
         priceMap: {

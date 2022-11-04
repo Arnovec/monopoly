@@ -3,24 +3,40 @@ import PlayerFigure from './PlayerFigure';
 
 export default function PlayersContainer(props) {
     //расположение нескольких фишек на одном поле
-    if(props.players !== undefined){
-        let length = 40;
-        let radius = length / (2 * Math.sin(Math.PI / props.players.length));
-        console.log()
-        for (let i = 0; i < props.players.length; ++i) {
-            props.players[i].top = (length * props.players.length / 5 + 15) + radius * Math.cos(Math.PI / props.players.length * (8 + 2 * i))+90;
-            props.players[i].left = (length * props.players.length / 5 + 15) + radius * Math.sin(Math.PI / props.players.length * (8 + 2 * i));
+    const playersRows = [];
+    let row = [];
+    if (props.players !== undefined) {
+        for (let i = 0; i < props.players.length; i++) {
+            row.push(<PlayerFigure key={props.players[i].playerFigure} {...props.players[i]} />);
+            if (i % 3 == 2) {
+                playersRows.push(
+                    <div className="player_figure_row">
+                        {row}
+                    </div>
+                );
+                row = [];
+            }
+        }
+        if (props.players.length % 3 != 0) {
+            playersRows.push(
+                <div className="player_figure_row">
+                    {row}
+                </div>
+            );
         }
     }
 
     return (
-        <div>
-            {props.players !== undefined ?
-                props.players.map(elem =>
-                    <PlayerFigure key={elem.playerFigure} {...elem} />
-                )
-                :
-                <></>}
+        <div
+            className="player_figure_container"
+        >
+            <div
+                style={{
+                    width: "100%"
+                }}
+            >
+                {playersRows}
+            </div>
         </div>
     )
 }

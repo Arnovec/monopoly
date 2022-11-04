@@ -2,7 +2,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 3,
         prisonOutCard: 0,
         money: 500,
         realtyList:[],
@@ -11,7 +11,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 3,
         prisonOutCard: 0,
         money: 500,
         realtyList:[],
@@ -20,7 +20,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 3,
         prisonOutCard: 0,
         money: 150,
         realtyList:[],
@@ -29,7 +29,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 3,
         prisonOutCard: 0,
         money: 500,
         realtyList:[],
@@ -38,7 +38,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 2,
         prisonOutCard: 0,
         money: 500,
         realtyList:[],
@@ -47,7 +47,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 3,
         prisonOutCard: 0,
         money: 150,
         realtyList:[],
@@ -56,7 +56,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 3,
         prisonOutCard: 0,
         money: 500,
         realtyList:[],
@@ -65,7 +65,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 3,
         prisonOutCard: 0,
         money: 500,
         realtyList:[],
@@ -74,7 +74,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 3,
         prisonOutCard: 0,
         money: 150,
         realtyList:[],

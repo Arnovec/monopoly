@@ -1,5 +1,6 @@
-import React from "react"
-import Player from "./Player"
+import React from "react";
+import Player from "./Player";
+import './style.css';
 const players = [
     {
         playerFigure: "Igor",
