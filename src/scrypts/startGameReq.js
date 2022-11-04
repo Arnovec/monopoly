@@ -1,4 +1,7 @@
 import axios from 'axios';
-export default async function startGameReq(count) {
-    return await axios.get(`https://monopoly.loc/POST/api/progress/start/${count}`)    
+export default async function startGameReq(count, figures) {
+    return await axios.post(`https://monopoly.loc/POST/api/progress/start/${count}`, {figures})
+        .then(resp => {
+
+        })    
 }

@@ -7,7 +7,8 @@ import StreetContent from './Field/StreetContent';
 import Realtyes from './../../data/Realtyes';
 import players_data from './../../data/Players';
 
-export default function GameFields() {
+// Добавить вместо Realtyes props.realtyes
+export default function GameFields(props) {
     //возможность отдалять и приближать игровое поле
     const [scale, setScale] = useState(1);
 
@@ -26,6 +27,7 @@ export default function GameFields() {
 
     // отслеживание позиций игроков
     const [players, setPlayers] = useState(players_data);
+//  const [players, setPlayers] = useState(props.players);
     const [playersPosition, setPlayersPosition] = useState([]);
     useEffect(() => {
         const newPlayersPosition = [];
