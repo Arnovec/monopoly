@@ -5,6 +5,8 @@ import Field from './Field/Field';
 import Realtyes from './../../data/Realtyes';
 import players_data from './../../data/Players';
 import './style.css';
+import './dice.css';
+import Dices from './Field/Dices';
 
 //для поля
 // id
@@ -95,6 +97,20 @@ const [showingPopoverId, showPopover] = useState(undefined);
         }
     }
 
+    const [n1, setN1] = useState(0);
+    const [n2, setN2] = useState(0);
+
+    function action() {
+        setN1(getRandom(1,6));
+        setN2(getRandom(1,6));
+    }
+
+    function getRandom(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
     return (
         <div className="game">
             <motion.div
@@ -123,7 +139,9 @@ const [showingPopoverId, showPopover] = useState(undefined);
                     <div className="column">
                         {leftFieldsrow}
                     </div>
-                    <div className="big_place"></div>
+                    <div className="big_place">
+                    <Dices action={props.action} d1={props.d1} d2={props.d2}></Dices>
+                    </div>
                     <div className="column">
                         {rigthFieldsrow}
                     </div>
