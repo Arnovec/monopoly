@@ -58,8 +58,7 @@ export default function App() {
         players={players}
         currentPlayer={currentPlayer}
       />
-      <GameFields realtyes={realtyes} players={players} />
-      {/* <GameFields action={action} realtyes={realtyes} players={players}/> */}
+      <GameFields action={action} realtyes={realtyes} players={players} />
       <StartGame />
        <ActionsButtons actions={["DropDice", "EndTurn", "LeavePrisonByCard", "LeavePrisonByMoney"]} />
     </>
