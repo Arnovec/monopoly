@@ -6,7 +6,6 @@ import SwapMenu from "./SwapMenu";
 export default function PlayersMenu(props) {
     const [chosenPlayer, setChosenPlayer] = useState(undefined);
 
-
     return (
         <>
             <div className="players_menu">

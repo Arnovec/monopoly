@@ -9,6 +9,7 @@
     "antd": "^4.24.0",
     "axios": "^1.1.2",
     "framer-motion": "^4.1.17",
+    "js-cookie": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "4.0.3",
