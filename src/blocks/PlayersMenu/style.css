@@ -1,47 +1,70 @@
 .players_menu {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 100;
-  }
-  
-  .players_menu_card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: gray;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .players_menu_money {
-    display: flex;
-    height: 40px;
-    padding: 0 10px;
-    align-items: center;
-  }
-  
-  .players_menu_money img {
-    height: 30px;
-  }
-  
-  .players_menu_money p {
-    margin: 0 0 0 5px;
-    font-size: 25px;
-  }
-  
-  .players_menu_prison_card {
-    display: flex;
-    height: 25px;
-    padding: 0 10px;
-    align-items: center;
-  }
-  
-  .players_menu_prison_card img {
-    height: 25px;
-  }
-  
-  .players_menu_prison_card p {
-    margin: 0 0 0 5px;
-    font-size: 15px;
-  }
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+}
+
+.players_menu_card {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: gray;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.players_menu_card_choosen{
+  box-shadow:rgb(228 255 0) 0px 1px 50px 10px;
+}
+
+.players_menu_money {
+  display: flex;
+  height: 40px;
+  padding: 0 10px;
+  align-items: center;
+}
+
+.players_menu_money img {
+  height: 30px;
+}
+
+.players_menu_money p {
+  margin: 0 0 0 5px;
+  font-size: 25px;
+}
+
+.players_menu_prison_card {
+  display: flex;
+  height: 25px;
+  padding: 0 10px;
+  align-items: center;
+}
+
+.players_menu_prison_card img {
+  height: 25px;
+}
+
+.players_menu_prison_card p {
+  margin: 0 0 0 5px;
+  font-size: 15px;
+}
+
+.swap_realty{
+  /* border: 1px solid black; */
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 5px;
+}
+
+.swap_realty_choosen{
+  box-shadow: rgb(0, 0, 0) 0px 2px 10px;
+}
+
+.swap_realty_color{
+  height: 15px;
+}
+
+.swap_realty_text{
+  padding: 0 5px;
+}
