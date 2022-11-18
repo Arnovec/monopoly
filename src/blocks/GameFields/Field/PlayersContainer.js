@@ -2,7 +2,6 @@ import React from "react";
 import PlayerFigure from './PlayerFigure';
 
 export default function PlayersContainer(props) {
-    //расположение нескольких фишек на одном поле
     const playersRows = [];
     let row = [];
     if (props.players !== undefined) {
@@ -27,9 +26,7 @@ export default function PlayersContainer(props) {
     }
 
     return (
-        <div
-            className="player_figure_container"
-        >
+        <div className="player_figure_container">
             <div
                 style={{
                     width: "100%"

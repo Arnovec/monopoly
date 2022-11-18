@@ -15,12 +15,12 @@ export default function FieldPopover(props) {
             <p className="popover_rent">С 4 домами: {props.priceMap[4]}</p>
             <p className="popover_rent">С ОТЕЛЕМ: {props.priceMap[5]}</p>
             <button
-                onClick={ ()=> {
-                    props.action(
-                        "BuyRealty",
-                        {player: props.player, realty: props.realty}
-                    )
-                }}
+                // onClick={ ()=> {
+                //     props.action(
+                //         "BuyRealty",
+                //         {player: props.player, realty: props.realty}
+                //     )
+                // }}
             >купить</button>
         </div>
     )

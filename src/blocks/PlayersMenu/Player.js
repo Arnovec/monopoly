@@ -3,7 +3,7 @@ import React from "react"
 export default function Player(props) {
 
     return (
-        <div className="players_menu_card">
+        <div onClick={props.onClick} className={`players_menu_card ${props.isCurrentPlayer ? "players_menu_card_choosen" : ""}`}>
             <p className="players_menu_figure">{props.playerFigure}</p>
             <div>
                 <div className="players_menu_money">

@@ -1,37 +1,42 @@
 import React, { useEffect, useState } from "react";
 import FieldPopover from "./FieldPopover";
-import ImgContent from "./ImgContent";
 import PlayersContainer from "./PlayersContainer";
-import StreetContent from "./StreetContent";
-const sieds = ["left", "right"]
+import ImgContent from "./Content/ImgContent";
+import StreetContent from "./Content/StreetContent";
+import AngelContent from "./Content/AngelContent";
+import { Popover } from "antd";
+import map from "../../../data/Map";
+const sieds = ["left", "right"];
 const placeFieldIds = [1, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39];
 const FieldWithImgIds = [2, 4, 5, 7, 12, 15, 17, 22, 25, 28, 33, 35, 36, 38];
 
 export default function Field(props) {
     let content = <></>
-    if(placeFieldIds.includes(props.position)){
-        content = <StreetContent  name={`${props.streeatName} ${props.position}`} cost={props.costCard} />;
-    } else if(FieldWithImgIds.includes(props.position)){
-        content = <ImgContent  name={`${props.streeatName} ${props.position}`} cost={props.costCard} />;
+    let fieldClassName = "field";
+    if (sieds.includes(props.direction)) {
+        fieldClassName += " field_side";
+    }
+    if (map[props.position].type == "realty") {
+        content = <StreetContent {...props} />;
+    } else if (map[props.position].type == "img") {
+        content = <ImgContent {...props} map={map[props.position]}/>;
+    } else if (props.position % 10 == 0) {
+        content = <AngelContent {...props} map={map[props.position]}/>
+        fieldClassName += " field_angel";
     } else {
         console.log("Ошибка с полями: тип элемента");
     }
 
     return (
-        <div
-            className={`field ${sieds.includes(props.direction) ? 'field_side' : ''}`}
-            onClick={() => {
-                props.showPopover(props.position);
-            }}
-            style={{
-                zIndex: props.isShowPopover ? 100 : 10
-            }}
-        >
-            <div className={`${sieds.includes(props.direction) ? props.direction : ''} field_content`}>
-                {content}
+        <Popover placement={props.direction} content={<FieldPopover {...props} />} trigger="click">
+            <div
+                className={fieldClassName}
+            >
+                <div className={`${sieds.includes(props.direction) ? props.direction : ''} field_content`}>
+                    {content}
+                </div>
+                <PlayersContainer {...props} />
             </div>
-            <PlayersContainer {...props} />
-            {props.isShowPopover ? <FieldPopover {...props} /> : <></>}
-        </div>
+        </Popover>
     )
 }
