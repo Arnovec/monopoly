@@ -60,7 +60,7 @@ export default function StartGame(props) {
 
     return (
         <>
-            <Modal title="Выберете фигурки игроков" footer={null} open={isModalOpen} closable={false}>
+            <Modal title="Выбирете фигурки игроков" footer={null} open={isModalOpen} closable={false}>
                 <Space style={{ width: "100%" }} direction="vertical">
 
                     {players.map((elem, index) =>

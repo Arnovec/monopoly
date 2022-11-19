@@ -6,7 +6,7 @@ export default function AngelContent(props) {
     return (
         <>
             <div>
-                <img className='angel_img' src={`./img/${props.map.img}`}/>
+                <img className='angel_img' src={`./img/${props.img}`}/>
             </div> 
         </>
     )

@@ -1,5 +1,5 @@
-import { Space, Typography } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { Typography } from 'antd';
+import React from 'react';
 const {Text} = Typography;
 
 export default function Realty(props) {
@@ -9,7 +9,7 @@ export default function Realty(props) {
                 
             </div>
             <Text className={`swap_realty_text`}>
-                {props.streeatName}
+                {props.cardName}
             </Text>
         </div>
     )

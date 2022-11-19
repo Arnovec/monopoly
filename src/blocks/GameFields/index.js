@@ -6,6 +6,7 @@ import players_data from './../../data/Players';
 import './style.css';
 import './dice.css';
 import Dices from './Field/Dices';
+import map from "../../data/Map"
 
 //для поля
 // id
@@ -61,13 +62,32 @@ export default function GameFields(props) {
         } else if (i > 30 && i < 40) {
             direction = "right";
         }
-        Realtyes[1].position = i;//Костыль
 
-        const fieldData = {
-            ...Realtyes[1],
+        let card = {
+            type: map[i].type,
+            img: map[i].img,
+        };
+        let fieldData = {
             direction,
             players: playersPosition[i],
+            currentPlayer: props.currentPlayer,
         }
+        if(Realtyes[i] !== undefined){
+            card = {
+                ...card,
+                ...Realtyes[i],
+            }
+            fieldData.isPopover = true;
+        } else {
+            card = {
+                ...card,
+                cardName: map[i].cardName,
+                costCard: map[i].costCard,
+                position: i,
+            }
+            fieldData.isPopover = false;
+        }
+        fieldData.card = card;
         let newField = <Field key={`Field ${i}`} {...fieldData} />;
 
         if (i >= 0 && i <= 10) {
