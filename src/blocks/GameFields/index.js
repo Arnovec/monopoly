@@ -4,8 +4,6 @@ import Field from './Field/Field';
 import Realtyes from './../../data/Realtyes';
 import players_data from './../../data/Players';
 import './style.css';
-import './dice.css';
-import Dices from './Field/Dices';
 
 //для поля
 // id
@@ -49,52 +47,57 @@ export default function GameFields(props) {
     const downFieldsrow = [];
     const leftFieldsrow = [];
     const rigthFieldsrow = [];
-    for (let i = 0; i < 40; i++) {
-        let direction = "";
 
-        if (i >= 0 && i <= 10) {
-            direction = "bottom";
-        } else if (i > 10 && i < 20) {
-            direction = "left";
-        } else if (i >= 20 && i <= 30) {
-            direction = "top";
-        } else if (i > 30 && i < 40) {
-            direction = "right";
-        }
-        Realtyes[1].position = i;//Костыль
+    function renderRealtyes() {
+        for (let i = 0; i < 40; i++) {
+            let direction = "";
+    
+            if (i >= 0 && i <= 10) {
+                direction = "bottom";
+            } else if (i > 10 && i < 20) {
+                direction = "left";
+            } else if (i >= 20 && i <= 30) {
+                direction = "top";
+            } else if (i > 30 && i < 40) {
+                direction = "right";
+            }
 
-        const fieldData = {
-            ...Realtyes[1],
-            direction,
-            players: playersPosition[i],
-        }
-        let newField = <Field key={`Field ${i}`} {...fieldData} />;
-
-        if (i >= 0 && i <= 10) {
-            downFieldsrow.unshift(newField);// в обратном порядке
-        } else if (i > 10 && i < 20) {
-            leftFieldsrow.unshift(newField); // в обратном порядке
-        } else if (i >= 20 && i <= 30) {
-            upFieldsrow.push(newField);
-        } else if (i > 30 && i < 40) {
-            rigthFieldsrow.push(newField);
-        } else {
-            console.log("Ошибка с полями: позиция элемента");
+            let fieldData = {};
+            let real = props.realtyes.find(realty => realty.position == i);
+            if (real) {
+                fieldData = {
+                    ...real,
+                    direction,
+                    players: playersPosition[i],
+                }
+            } else {
+                Realtyes[1].position = i;//Костыль
+                fieldData = {
+                    ...Realtyes[1],
+                    direction,
+                    players: playersPosition[i],
+                }
+            }
+    
+            
+            let newField = <Field key={`Field ${i}`} {...fieldData} />;
+    
+            if (i >= 0 && i <= 10) {
+                downFieldsrow.unshift(newField);// в обратном порядке
+            } else if (i > 10 && i < 20) {
+                leftFieldsrow.unshift(newField); // в обратном порядке
+            } else if (i >= 20 && i <= 30) {
+                upFieldsrow.push(newField);
+            } else if (i > 30 && i < 40) {
+                rigthFieldsrow.push(newField);
+            } else {
+                console.log("Ошибка с полями: позиция элемента");
+            }
         }
     }
 
-    const [n1, setN1] = useState(0);
-    const [n2, setN2] = useState(0);
-
-    function action() {
-        setN1(getRandom(1,6));
-        setN2(getRandom(1,6));
-    }
-
-    function getRandom(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+    if(props.realtyes.length != 0) {
+        renderRealtyes();
     }
 
     return (
@@ -126,7 +129,6 @@ export default function GameFields(props) {
                         {leftFieldsrow}
                     </div>
                     <div className="big_place">
-                    <Dices action={props.action} d1={props.d1} d2={props.d2}></Dices>
                     </div>
                     <div className="column">
                         {rigthFieldsrow}

@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 export default function StartGame(props) {
     const [isModalOpen, setIsModalOpen] = useState(true);
 
+    const [sendPlayers, setSendPlayers] = useState([]);
+
     const [players, setPlayers] = useState([
         {
             name: "Car",
@@ -51,11 +53,27 @@ export default function StartGame(props) {
                 const newPlayer_ = players[i];
                 newPlayer_.isSelected = !newPlayer_.isSelected;
                 newPlayers.push(newPlayer_);
+                setSendPlayers([...sendPlayers, newPlayer_.name]);
             } else {
                 newPlayers.push(players[i]);
             }
         }
         setPlayers(newPlayers);
+    }
+
+    async function start() {
+        let tmp = [];
+        players.forEach(el => {
+            if (el.isSelected) {
+                tmp.push(el.name);
+            }
+        });
+        try{
+            await props.action(tmp);
+            setIsModalOpen(false);
+        } catch (e) {
+            alert("Неправильные данные")
+        }
     }
 
     return (
@@ -77,7 +95,9 @@ export default function StartGame(props) {
                     <Space style={{ width: "100%" }} direction="vertical" align="end">
                         <Space direction="horizontal">
                             <Button>Продолжить</Button>
-                            <Button onClick={() => { setIsModalOpen(false) }}>Начать</Button>
+                            <Button onClick={() => { 
+                                start();
+                            }}>Начать</Button>
                         </Space>
                     </Space>
                 </Space>

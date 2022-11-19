@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 export default function Dices(props){
@@ -6,8 +7,8 @@ export default function Dices(props){
     { x: 0, y: 270 }, // 1
     { x: 0, y: 180 }, // 2    
     { x: 0, y: 90 }, // 3        
-    { x: 0, y: 90 }, // 4
-    { x: 270, y: 0 }, // 5
+    { x: 270, y: 0 }, // 4
+    { x: 90, y: 0 }, // 5
     { x: 90, y: 0 }, // 6    
     ];
 
@@ -24,7 +25,7 @@ export default function Dices(props){
 
     useEffect(
         () => {
-            console.log("test" + rx1, )
+            console.log("test" + n1 +n2, )
             setRX1(rotation[n1].x);
             setRY1(rotation[n1].y);
             setRX2(rotation[n2].x);
@@ -34,6 +35,35 @@ export default function Dices(props){
     
     return(
         <div className="stage">
+            <Button
+                    className="action_button"
+                    type="primary"
+                    danger={false}
+                    key="DropDice"
+                    onClick={async () => {
+                        count = 0;
+
+                        let timer1 = setInterval(() => {
+                            setN1(getRandom(0,6));
+                            setN2(getRandom(0,6));
+                            count++;
+                        }, 200);
+        
+                        let res = await props.action("DropDice");
+                        let timer2 = setInterval(() => {
+                            if (count >= 5) {
+                                clearInterval(timer1);
+                                clearInterval(timer2);
+                                setN1(res.data.actionBody.player.lastRoll[0]-1);
+                                setN2(res.data.actionBody.player.lastRoll[1]-1);
+                                return;
+                            }
+                        }, 200)
+                        
+                    }}
+                >
+                    Бросить кубики
+                </Button>
             <div className="group g2">
                 <div className="dice d3" style={{ transform: `rotateX(${rx1}deg) rotateY(${ry1}deg)` }}>
                     <div className="face num-1"><img src='./img/1.jpg'></img></div>
@@ -44,7 +74,7 @@ export default function Dices(props){
                     <div className="face num-6"><img src='./img/6.jpg'></img></div>
                 </div>
                 <div className="dice d4" style={{ transform: `rotateX(${rx2}deg) rotateY(${ry2}deg)` }}>
-                <div className="face num-1"><img src='./img/1.jpg'></img></div>
+                    <div className="face num-1"><img src='./img/1.jpg'></img></div>
                     <div className="face num-2"><img src='./img/2.jpg'></img></div>
                     <div className="face num-3"><img src='./img/3.jpg'></img></div>
                     <div className="face num-4"><img src='./img/4.jpg'></img></div>
@@ -52,25 +82,6 @@ export default function Dices(props){
                     <div className="face num-6"><img src='./img/6.jpg'></img></div>
                 </div>   
             </div>
-            <button onClick={() => {
-                count = 0;
-                let result = props.action("DropDice");
-                let timer = setInterval(() => {
-                    
-                    setN1(getRandom(0,6));
-                    setN2(getRandom(0,6));
-                    if (count >= 5 && result) {
-                        clearInterval(timer);
-                        setN1(getRandom(0,6));
-                        setN2(getRandom(0,6));
-                        // setN1(result['actionBody']['Player']['lastRoll'][0]);
-                        // setN2(result['actionBody']['Player']['lastRoll'][1]);
-                        return;
-                    }
-                    count++;
-                }, 200)
-                
-            }}>Roll IT</button>
         </div>
     )
 }
