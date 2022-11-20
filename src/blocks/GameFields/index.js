@@ -80,7 +80,7 @@ export default function GameFields(props) {
             }
     
             
-            let newField = <Field key={`Field ${i}`} {...fieldData} />;
+            let newField = <Field key={`Field ${i}`} {...fieldData} realtyAction={props.realtyAction} currentPlayer={props.currentPlayer}/>;
     
             if (i >= 0 && i <= 10) {
                 downFieldsrow.unshift(newField);// в обратном порядке

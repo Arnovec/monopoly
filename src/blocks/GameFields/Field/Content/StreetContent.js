@@ -8,7 +8,7 @@ export default function StreetContent(props) {
                 props.showPopover(props.position);
             }}
         >
-            <div className="field_color"></div>
+            <div className="field_color" style={{background: props.color}}></div>
             <div className="field_info">
                 <div className="name">
                     {props.cardName}

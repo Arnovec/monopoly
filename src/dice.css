@@ -75,7 +75,7 @@ html {
   .dice .face img{
     width: 90px;
     height: 90px;
-    border: 2px solid black;
+    border: 3px solid rgb(85, 85, 85);
   }
 
   .dice .face:nth-child(1) {
