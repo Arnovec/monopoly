@@ -1,14 +1,10 @@
 import { Button, Space } from "antd";
 import React, { useEffect, useState } from "react";
+import Dices from "./Dices";
 import './style.css';
+import './dice.css';
 
 const allActions = [
-     {
-        name: "DropDice",
-        translate: "Бросить кубики",
-        type: "primary",
-        danger: false
-    },
     {
         name: "EndTurn",
         translate: "Завершить ход",
@@ -53,6 +49,7 @@ export default function ActionsButtons(props) {
                     {elem.translate}
                 </Button>
             )}
+            <Dices action={props.action}></Dices>
         </Space>
     );
 }

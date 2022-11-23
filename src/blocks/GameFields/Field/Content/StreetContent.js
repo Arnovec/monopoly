@@ -11,7 +11,7 @@ export default function StreetContent(props) {
             <div className="field_color"></div>
             <div className="field_info">
                 <div className="name">
-                    {props.cardName} {props.position}
+                    {props.cardName}
                 </div>
                 <div className="cost">
                     {props.costCard}

@@ -4,9 +4,8 @@ import Field from './Field/Field';
 import Realtyes from './../../data/Realtyes';
 import players_data from './../../data/Players';
 import './style.css';
-import './dice.css';
-import Dices from './Field/Dices';
 import map from "../../data/Map"
+
 
 //для поля
 // id
@@ -50,9 +49,10 @@ export default function GameFields(props) {
     const downFieldsrow = [];
     const leftFieldsrow = [];
     const rigthFieldsrow = [];
-    for (let i = 0; i < 40; i++) {
-        let direction = "";
 
+    for (let i = 0; i < 40; i++) {
+        let direction;
+        
         if (i >= 0 && i <= 10) {
             direction = "bottom";
         } else if (i > 10 && i < 20) {
@@ -72,7 +72,7 @@ export default function GameFields(props) {
             players: playersPosition[i],
             currentPlayer: props.currentPlayer,
         }
-        if(Realtyes[i] !== undefined){
+        if (Realtyes[i] !== undefined) {
             card = {
                 ...card,
                 ...Realtyes[i],
@@ -101,20 +101,6 @@ export default function GameFields(props) {
         } else {
             console.log("Ошибка с полями: позиция элемента");
         }
-    }
-
-    const [n1, setN1] = useState(0);
-    const [n2, setN2] = useState(0);
-
-    function action() {
-        setN1(getRandom(1,6));
-        setN2(getRandom(1,6));
-    }
-
-    function getRandom(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     return (
@@ -146,7 +132,6 @@ export default function GameFields(props) {
                         {leftFieldsrow}
                     </div>
                     <div className="big_place">
-                    <Dices action={props.action} d1={props.d1} d2={props.d2}></Dices>
                     </div>
                     <div className="column">
                         {rigthFieldsrow}
