@@ -1,10 +1,27 @@
-import { Modal, Space, Button } from 'antd';
+import { Modal, Space, Button, InputNumber, Select, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import Player from './Player';
+const { Option } = Select;
+const { Text } = Typography;
 
 export default function SwapMenu(props) {
     const [currentPlayerChoosenRealty, setCurrentPlayerChoosenRealty] = useState([]);
     const [chosenPlayerChoosenRealty, setChosenPlayerChoosenRealty] = useState([]);
+    const [money, setMoney] = useState(0);
+    const [swapDirection, setSwapDirection] = useState(1)
+
+    const selectBefore = (
+        <Select
+            onChange={(newVal) => {
+                setSwapDirection(newVal);
+            }}
+            value={swapDirection}
+            style={{ width: 100 }}
+        >
+            <Option value={1}>{props.currentPlayer.playerFigure}</Option>
+            <Option value={-1}>{props.chosenPlayer.playerFigure}</Option>
+        </Select>
+    );
 
     return (
         <Modal
@@ -26,6 +43,21 @@ export default function SwapMenu(props) {
                     {...props.chosenPlayer}
                     choosenRealty={chosenPlayerChoosenRealty}
                     setChoosenRealty={setChosenPlayerChoosenRealty}
+                />
+                <Text>Передать деньги</Text>
+                <InputNumber
+                    value={money}
+                    min={0}
+                    onChange={
+                        (newVal) => {
+                            setMoney(newVal);
+                        }
+                    }
+                    controls={false}
+                    addonBefore={selectBefore}
+                    addonAfter={"$"}
+                    style={{width:220}}
+
                 />
                 <Space style={{ width: "100%" }} direction="vertical" align="end">
                     <Space direction="horizontal">
