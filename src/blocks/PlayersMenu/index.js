@@ -27,6 +27,7 @@ export default function PlayersMenu(props) {
             </div>
             {chosenPlayer !== undefined && props.currentPlayer !== undefined ?
                 <SwapMenu
+                    action={props.action}
                     chosenPlayer={chosenPlayer}
                     currentPlayer={props.currentPlayer}
                     setChosenPlayer={setChosenPlayer}

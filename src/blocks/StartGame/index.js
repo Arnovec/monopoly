@@ -2,7 +2,7 @@ import { Button, Modal, Radio, Space } from "antd";
 import React, { useEffect, useState } from "react";
 
 export default function StartGame(props) {
-    const [isModalOpen, setIsModalOpen] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [sendPlayers, setSendPlayers] = useState([]);
 
@@ -74,7 +74,7 @@ export default function StartGame(props) {
 
     return (
         <>
-            <Modal title="Выберете фигурки игроков" footer={null} open={isModalOpen} closable={false}>
+            <Modal title="Выбирете фигурки игроков" footer={null} open={isModalOpen} closable={false}>
                 <Space style={{ width: "100%" }} direction="vertical">
 
                     {players.map((elem, index) =>

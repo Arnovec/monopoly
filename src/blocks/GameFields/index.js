@@ -4,6 +4,7 @@ import Field from './Field/Field';
 import Realtyes from './../../data/Realtyes';
 import players_data from './../../data/Players';
 import './style.css';
+import map from "../../data/Map"
 
 //для поля
 // id
@@ -62,25 +63,34 @@ export default function GameFields(props) {
                 direction = "right";
             }
 
-            let fieldData = {};
-            let real = props.realtyes.find(realty => realty.position == i);
-            if (real) {
-                fieldData = {
-                    ...real,
-                    direction,
-                    players: playersPosition[i],
-                }
-            } else {
-                Realtyes[1].position = i;//Костыль
-                fieldData = {
-                    ...Realtyes[1],
-                    direction,
-                    players: playersPosition[i],
-                }
+            let fieldData = {
+                direction,
+                players: playersPosition[i],
+                currentPlayer: props.currentPlayer,
+                action: props.action,
             }
-    
+            let card = {
+                type: map[i].type,
+                img: map[i].img,
+            };
+            if (Realtyes[i] !== undefined) {
+                card = {
+                    ...card,
+                    ...Realtyes[i],
+                }
+                fieldData.isPopover = true;
+            } else {
+                card = {
+                    ...card,
+                    cardName: map[i].cardName,
+                    costCard: map[i].costCard,
+                    position: i,
+                }
+                fieldData.isPopover = false;
+            }
+            fieldData.card = card;
             
-            let newField = <Field key={`Field ${i}`} {...fieldData} realtyAction={props.realtyAction} currentPlayer={props.currentPlayer}/>;
+            let newField = <Field key={`Field ${i}`} {...fieldData} realtyAction={props.realtyAction} />;
     
             if (i >= 0 && i <= 10) {
                 downFieldsrow.unshift(newField);// в обратном порядке

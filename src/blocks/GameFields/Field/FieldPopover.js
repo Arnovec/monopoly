@@ -1,41 +1,54 @@
-import { Popover } from "antd";
 import React from "react";
-import PlayersContainer from "./PlayersContainer";
+import PopoverButtons from "./PopoverButtons";
 
 export default function FieldPopover(props) {
+    let priceColumn = [];
 
-console.log(props.currentPlayer)
-    return (
-        <div className={`popover popover_${props.direction}`}>
-            <h3 className="popover_title">{props.cardName} {props.position}</h3>
-            <p className="popover_rent">Рента с участка {props.priceMap[0]}</p>
-            <p className="popover_rent">С 1 домом: {props.priceMap[1]}</p>
-            <p className="popover_rent">С 2 домами: {props.priceMap[2]}</p>
-            <p className="popover_rent">С 3 домами: {props.priceMap[3]}</p>
-            <p className="popover_rent">С 4 домами: {props.priceMap[4]}</p>
-            <p className="popover_rent">С ОТЕЛЕМ: {props.priceMap[5]}</p>
-            {
-                props.position == props.currentPlayer.position 
-                && !props.currentPlayer.realtyList.find(el => el.cardName == props.cardName)
-                ?   <button
-                        onClick={ ()=> {
-                        props.realtyAction(
-                            "BuyRealty",
-                            props
-                        )
-                    }}>купить</button>
-                :   ""
+    for (const key in props.card.priceMap) {
+        let text = "";
+        if (key == -1) {
+
+            continue;
+        }
+        if (props.card.type === "realty") {
+            if (key == 0) {
+                text = `Рента с участка ${props.card.priceMap[key]}`;
+            } else if (key == 5) {
+                text = `C ОТЕЛЕМ: ${props.card.priceMap[key]}`;
+            } else {
+                text = `С ${key} `;
+                text += key == 1 ? "домом" : "домами";
+                text += `: ${props.card.priceMap[key]}`;
             }
-            {
-                props.currentPlayer.realtyList.find(el => el.cardName == props.cardName) 
-                ?   <button
-                        onClick={ ()=> {
-                        props.realtyAction(
-                            "SellRealty",
-                            props
-                        )
-                    }}>продать</button>
-                :   ""
+        } else {
+            if (key == 1) {
+                text = `Рента с участка ${props.card.priceMap[key]}`;
+            } else {
+                text = `С ${key} карточками: ${props.card.priceMap[key]}`;
+            }
+        }
+        priceColumn.push(
+            <p
+                key={`${props.card.position} card price ${key}`}
+                className={`popover_rent${props.card.countHouse == key ? " popover_rent__current" : ""}`}
+            >{text}
+            </p>
+        )
+    }
+
+    return (
+        <div className={`popover`}>
+            <h2 className="popover_title">{props.card.cardName}</h2>
+            {props.card.owner !== "" ?
+                <p className="popover_owner">Владелец: {props.card.owner}</p>
+                :
+                <></>
+            }
+            {priceColumn}
+            {props.currentPlayer.playerFigure == props.card.owner ?
+                <PopoverButtons {...props} />
+                :
+                <></>
             }
         </div>
     )

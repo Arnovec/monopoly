@@ -12,6 +12,7 @@
     box-sizing: border-box;
     width: 200px;
     height: 300px;
+    background-color: rgb(179, 179, 179); /*выбрать*/
     background-color: rgb(233, 233, 233);
     border: 1px solid black;
     border-radius: 5px;
@@ -37,7 +38,7 @@
     width: 300px;
 }
 
-.angel_img{
+.angel_img {
     width: 100%;
     height: 100%;
 }
@@ -103,6 +104,11 @@
     text-align: center;
 }
 
+.name{
+    height: 50px;
+    width: 200px;
+}
+
 .field_img {
     width: 150px;
     height: 200px;
@@ -141,12 +147,42 @@
 }
 
 .popover_title,
-.popover_rent {
+.popover_owner, 
+.popover_rent{
     width: 100%;
     text-align: center;
+}
+
+.popover_title{
+    margin: 10px 0 0 0;
+}
+
+.popover_owner{
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.popover_rent{
+    margin: 10px 0;
+}
+
+.popover_rent__current{
+    color: rgb(116, 0, 0);
+    font-weight: 700;
+}
+
+.popover_buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.popover__button {
+    width: 50%;
 }
 
 .big_place {
     flex: 1;
     background-color: rgb(255, 198, 93);
+    background-color: rgb(152, 197, 201); /*выбрать*/
 }

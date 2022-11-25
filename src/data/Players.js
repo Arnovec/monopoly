@@ -9,24 +9,27 @@ const players = [
         money: 500,
         realtyList:[
             Realtyes[1],
+            Realtyes[39],
         ],
+        monopolies: [""],//*
+        inPrison: 0,//*
         playerFigure: "Car",
     },
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 0,
         prisonOutCard: 0,
         money: 500,
         realtyList:[
-            Realtyes[2],
+            Realtyes[3],
         ],
         playerFigure: "Plane",
     },
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 0,
         prisonOutCard: 0,
         money: 150,
         realtyList:[],
@@ -35,7 +38,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 0,
         prisonOutCard: 0,
         money: 500,
         realtyList:[],
@@ -44,7 +47,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 0,
         prisonOutCard: 0,
         money: 500,
         realtyList:[],
@@ -53,7 +56,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 0,
         prisonOutCard: 0,
         money: 150,
         realtyList:[],
@@ -62,7 +65,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 0,
         prisonOutCard: 0,
         money: 500,
         realtyList:[],
@@ -71,7 +74,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 0,
         prisonOutCard: 0,
         money: 500,
         realtyList:[],
@@ -80,7 +83,7 @@ const players = [
     {
         lastRoll: [3,2],
         countDouble: 0,
-        position: 1,
+        position: 0,
         prisonOutCard: 0,
         money: 150,
         realtyList:[],

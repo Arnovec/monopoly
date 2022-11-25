@@ -7,9 +7,9 @@ export default function ImgContent(props) {
             <div
                 className="field_with_img"
             >
-                <p className="name">{props.streeatName} {props.position}</p>
+                <p className="name">{props.cardName}</p>
                 <div className="field_img_container">
-                    <img className="field_img" src={`./img/${props.map.img}`}/>
+                    <img className="field_img" src={`./img/${props.img}`}/>
                 </div>
                 <p className="cost">{props.costCard}</p>
             </div>
