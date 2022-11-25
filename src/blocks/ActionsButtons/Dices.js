@@ -25,7 +25,6 @@ export default function Dices(props){
 
     useEffect(
         () => {
-            console.log("test" + n1 +n2, )
             setRX1(rotation[n1].x);
             setRY1(rotation[n1].y);
             setRX2(rotation[n2].x);
@@ -35,35 +34,38 @@ export default function Dices(props){
     
     return(
         <div className="stage">
+            {props.actions.includes('DropDice') ? 
             <Button
-                    className="action_button"
-                    type="primary"
-                    danger={false}
-                    key="DropDice"
-                    onClick={async () => {
-                        count = 0;
+            className="action_button"
+            type="primary"
+            danger={false}
+            key="DropDice"
+            onClick={async () => {
+                count = 0;
 
-                        let timer1 = setInterval(() => {
-                            setN1(getRandom(0,6));
-                            setN2(getRandom(0,6));
-                            count++;
-                        }, 200);
-        
-                        let res = await props.action("DropDice");
-                        let timer2 = setInterval(() => {
-                            if (count >= 5) {
-                                clearInterval(timer1);
-                                clearInterval(timer2);
-                                setN1(res.data.actionBody.player.lastRoll[0]-1);
-                                setN2(res.data.actionBody.player.lastRoll[1]-1);
-                                return;
-                            }
-                        }, 200)
-                        
-                    }}
-                >
-                    Бросить кубики
-                </Button>
+                let timer1 = setInterval(() => {
+                    setN1(getRandom(0,6));
+                    setN2(getRandom(0,6));
+                    count++;
+                }, 200);
+
+                let res = await props.action("DropDice");
+                let timer2 = setInterval(() => {
+                    if (count >= 5) {
+                        clearInterval(timer1);
+                        clearInterval(timer2);
+                        setN1(res.data.actionBody.player.lastRoll[0]-1);
+                        setN2(res.data.actionBody.player.lastRoll[1]-1);
+                        return;
+                    }
+                }, 200)
+                
+            }}
+        >
+            Бросить кубики
+        </Button>    
+        : <></>} 
+            <div className='actionButton'></div>
             <div className="group g2">
                 <div className="dice d3" style={{ transform: `rotateX(${rx1}deg) rotateY(${ry1}deg)` }}>
                     <div className="face num-1"><img src='./img/1.jpg'></img></div>
