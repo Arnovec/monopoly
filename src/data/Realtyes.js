@@ -28,7 +28,7 @@ const Realtyes = {
             4: 500,
             5: 600
         },
-        countHouse: 4,
+        countHouse: -1,
         costCard: 150,
         costHouse: 100,
         color: "red"

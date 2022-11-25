@@ -56,12 +56,25 @@ export default function SwapMenu(props) {
                     controls={false}
                     addonBefore={selectBefore}
                     addonAfter={"$"}
-                    style={{width:220}}
+                    style={{ width: 220 }}
 
                 />
                 <Space style={{ width: "100%" }} direction="vertical" align="end">
                     <Space direction="horizontal">
-                        <Button>Обменять</Button>
+                        <Button
+                            onClick={() => {
+                                props.action(
+                                    "Swap",
+                                    {
+                                        player1: props.currentPlayer,
+                                        player2: props.chosenPlayer,
+                                        offerOfPlayer1: currentPlayerChoosenRealty,
+                                        offerOfPlayer2: chosenPlayerChoosenRealty,
+                                        money: money * swapDirection,
+                                    }
+                                )
+                            }}
+                        >Обменять</Button>
                     </Space>
                 </Space>
             </Space>

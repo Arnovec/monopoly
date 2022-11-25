@@ -11,32 +11,33 @@ import axios from 'axios';
 import './dice.css';
 import Dices from './blocks/ActionsButtons/Dices';
 import { Space } from 'antd';
+import SadActions from './blocks/SadActions';
 
 // Запрос на старт игры, отправить на Player и карточки
 // Запрос на 
 
 export default function App() {
 
-  const [players, setPlayers] = useState([]);
-  const [realtyes, setRealtyes] = useState([]);
+  const [players, setPlayers] = useState(players_data);
+  const [realtyes, setRealtyes] = useState(realtyes_data);
   const [currentPlayer, setCurrentPlayer] = useState(players[0]);
   const [resultDropDice, setResultDropDice] = useState([]);
   const [token, setToken] = useState(Cookies.get('token'));
-  const [actions, setActions] = useState(["DropDice"])
+  const [actions, setActions] = useState(["DropDice", "BuyRealty"])
 
   async function action(type, actionData) {
     let res;
-    switch(type){
+    switch (type) {
       case 'DropDice':
-        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`, 
-        {
-          "actionType": type,
-          "actionBody": {
-            "player": currentPlayer
-          }
-        })
+        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
+          {
+            "actionType": type,
+            "actionBody": {
+              "player": currentPlayer
+            }
+          })
         setPlayers(players.map(player => {
-          if(player.playerFigure == currentPlayer.playerFigure) {
+          if (player.playerFigure == currentPlayer.playerFigure) {
             return res.data.actionBody.player
           } else {
             return player
@@ -47,27 +48,63 @@ export default function App() {
         console.log(res);
         return res;
       case "EndTurn":
-        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`, 
-        {
-          "actionType": type,
-          "actionBody": {
-            "player": currentPlayer
-          }
-        })
+        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
+          {
+            "actionType": type,
+            "actionBody": {
+              "player": currentPlayer
+            }
+          })
         setActions(res.data.actionBody.resultActions[0]);
         setCurrentPlayer(res.data.actionBody.nextPlayer);
         console.log(res);
         return res;
-      case "LeavePrisonByMoney":
-        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`, 
-        {
-          "actionType": type,
-          "actionBody": {
-            "player": currentPlayer
-          }
-        })
+      case 'BuyRealty':
+        console.log(actionData?.realtyCard ? "data!" : "current!");
+        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
+          {
+            "actionType": type,
+            "actionBody": {
+              "player": currentPlayer,
+              "realtyCard": actionData?.realtyCard ? actionData.realtyCard : realtyes[currentPlayer.position], // выкуп заложенного имущества : попадание на свободное поле
+            }
+          })
         setPlayers(players.map(player => {
-          if(player.playerFigure == currentPlayer.playerFigure) {
+          if (player.playerFigure == currentPlayer.playerFigure) {
+            return res.data.actionBody.player
+          } else {
+            return player
+          }
+        }));
+        setCurrentPlayer(res.data.actionBody.player);
+        console.log(res);
+      case "BuyHouse":
+        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
+          {
+            "actionType": type,
+            "actionBody": {
+              "player": currentPlayer,
+              "realtyCard": actionData.realtyCard,
+            }
+          });
+        setPlayers(players.map(player => {
+          if (player.playerFigure == currentPlayer.playerFigure) {
+            return res.data.actionBody.player
+          } else {
+            return player
+          }
+        }));
+        setCurrentPlayer(res.data.actionBody.player);
+      case "LeavePrisonByMoney":
+        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
+          {
+            "actionType": type,
+            "actionBody": {
+              "player": currentPlayer
+            }
+          })
+        setPlayers(players.map(player => {
+          if (player.playerFigure == currentPlayer.playerFigure) {
             return res.data.actionBody.player
           } else {
             return player
@@ -77,17 +114,34 @@ export default function App() {
         setCurrentPlayer(res.data.actionBody.player);
         console.log(res);
         return res;
-      case 'BuyRealty':
-        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`, 
-        {
-          "actionType": type,
-          "actionBody": {
-            "player": currentPlayer,
-            "realtyCard": actionData.realty
-          }
-        })
+      case "SellHouse":
+        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
+          {
+            "actionType": type,
+            "actionBody": {
+              "player": currentPlayer,
+              "realtyCard": actionData.realtyCard,
+            }
+          });
         setPlayers(players.map(player => {
-          if(player.playerFigure == currentPlayer.playerFigure) {
+          if (player.playerFigure == currentPlayer.playerFigure) {
+            return res.data.actionBody.player
+          } else {
+            return player
+          }
+        }));
+        setCurrentPlayer(res.data.actionBody.player);
+      case 'SellRealty':
+        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
+          {
+            "actionType": type,
+            "actionBody": {
+              "player": currentPlayer,
+              "realtyCard": actionData.realtyCard
+            }
+          })
+        setPlayers(players.map(player => {
+          if (player.playerFigure == currentPlayer.playerFigure) {
             return res.data.actionBody.player
           } else {
             return player
@@ -95,23 +149,41 @@ export default function App() {
         }));
         setCurrentPlayer(res.data.actionBody.player);
         console.log(res);
-      case 'SellRealty':
-        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`, 
-        {
-          "actionType": type,
-          "actionBody": {
-            "player": currentPlayer,
-            "realtyCard": actionData.realty
-          }
-        })
+      case "Swap":
+        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
+          {
+            "actionType": type,
+            "actionBody": {
+              "player1": actionData.player1,
+              "player2": actionData.player2,
+              "offerOfPlayer1": actionData.offerOfPlayer1,
+              "offerOfPlayer2": actionData.offerOfPlayer2,
+              "money": actionData.maoney,
+            }
+          });
         setPlayers(players.map(player => {
-          if(player.playerFigure == currentPlayer.playerFigure) {
-            return res.data.actionBody.player
+          if (player.playerFigure == res.data.actionBody.player1.playerFigure) {
+            return res.data.actionBody.player1;
+          } else if (player.playerFigure == res.data.actionBody.player2.playerFigure) {
+            return res.data.actionBody.player2;
           } else {
             return player
           }
         }));
-        setCurrentPlayer(res.data.actionBody.player);
+        setCurrentPlayer(res.data.actionBody.player1);
+      case 'GiveUp': // сдаться
+        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
+          {
+            "actionType": type,
+            "actionBody": {
+              "player": currentPlayer,
+            }
+          })
+        setPlayers(players.map(player => {
+          if (player.playerFigure != currentPlayer.playerFigure) {
+            return player
+          }
+        }));
         console.log(res);
     }
   }
@@ -128,15 +200,17 @@ export default function App() {
   return (
     <>
       <PlayersMenu
+        action={action}
         players={players}
         currentPlayer={currentPlayer}
       />
-      <GameFields action={action}  realtyes={realtyes} players={players} currentPlayer={currentPlayer}/>
+      <GameFields action={action} realtyes={realtyes} players={players} currentPlayer={currentPlayer} />
       <StartGame action={start} />
       <Space className="actions_container" direction="vertical">
         <ActionsButtons action={action} actions={actions} />
         <Dices action={action} actions={actions}></Dices>
       </Space>
+      <SadActions />
     </>
   );
 }

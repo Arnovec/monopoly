@@ -183,6 +183,6 @@
 
 .big_place {
     flex: 1;
-    background-color: rgb(152, 197, 201); /*выбрать*/
     background-color: rgb(255, 198, 93);
+    background-color: rgb(152, 197, 201); /*выбрать*/
 }

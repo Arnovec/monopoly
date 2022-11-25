@@ -4,6 +4,7 @@ import Field from './Field/Field';
 import Realtyes from './../../data/Realtyes';
 import players_data from './../../data/Players';
 import './style.css';
+import map from "../../data/Map"
 
 //для поля
 // id
@@ -68,6 +69,10 @@ export default function GameFields(props) {
                 currentPlayer: props.currentPlayer,
                 action: props.action,
             }
+            let card = {
+                type: map[i].type,
+                img: map[i].img,
+            };
             if (Realtyes[i] !== undefined) {
                 card = {
                     ...card,

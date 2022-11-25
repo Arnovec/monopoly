@@ -2,7 +2,6 @@ import React from "react";
 import PopoverButtons from "./PopoverButtons";
 
 export default function FieldPopover(props) {
-    console.log("popover props", props)
     let priceColumn = [];
 
     for (const key in props.card.priceMap) {

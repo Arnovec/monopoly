@@ -9,20 +9,26 @@ const allActions = [
         name: "EndTurn",
         translate: "Завершить ход",
         type: "primary",
-        danger: true
+        danger: true,
     },
     {
         name:  "LeavePrisonByCard",
         translate: "Покинуть тюрьму за карточку",
         type: "default",
-        danger: false
+        danger: false,
     },
     {
         name: "LeavePrisonByMoney",
         translate: "Покинуть тюрьму за деньги",
         type: "default",
-        danger: false
+        danger: false,
     },
+    {
+        name: "BuyRealty",
+        translate: "Купить имущество",
+        type: "primary",
+        danger: false,
+    },  
 ]
 
 export default function ActionsButtons(props) {
@@ -45,7 +51,9 @@ export default function ActionsButtons(props) {
                     type={elem.type}
                     danger={elem.danger}
                     key={elem.name}
-                    onClick={() => props.action(elem.name)}
+                    onClick={() => {
+                        props.action(elem.name);
+                    }}
                 >
                     {elem.translate}
                 </Button>

@@ -16,14 +16,60 @@ export default function PopoverButtons(props) {
     return (
         <div className={`popover_buttons`}>
             {props.card.countHouse == -1 ?
-                <Button type="primary" className={`popover__button`}>Выкупить</Button>
+                <Button
+                    type="primary"
+                    className={`popover__button`}
+                    onClick={() => {
+                        props.action(
+                            "BuyRealty",
+                            {
+                                realtyCard: props.card
+                            }
+                        )
+                    }}
+                >Выкупить</Button>
                 :
                 <>
-                    <Button type="primary" className={`popover__button`}>+Дом</Button>
+                    <Button
+                        type="primary"
+                        className={`popover__button`}
+                        onClick={() => {
+                            props.action(
+                                "BuyHouse",
+                                {
+                                    realtyCard: props.card
+                                }
+                            )
+                        }}
+                    >+Дом</Button>
                     {props.card.countHouse == 0 ?
-                        <Button danger type="primary" className={`popover__button`}>Заложить</Button>
+                        <Button
+                            danger
+                            type="primary"
+                            className={`popover__button`}
+                            onClick={() => {
+                                props.action(
+                                    "SellRealty",
+                                    {
+                                        realtyCard: props.card
+                                    }
+                                )
+                            }}
+                        >Заложить</Button>
                         :
-                        <Button danger type="primary" className={`popover__button`}>-Дом</Button>
+                        <Button
+                            danger
+                            type="primary"
+                            className={`popover__button`}
+                            onClick={() => {
+                                props.action(
+                                    "SellHouse",
+                                    {
+                                        realtyCard: props.card
+                                    }
+                                )
+                            }}
+                        >-Дом</Button>
                     }
                 </>
             }

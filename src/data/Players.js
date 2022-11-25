@@ -9,6 +9,7 @@ const players = [
         money: 500,
         realtyList:[
             Realtyes[1],
+            Realtyes[39],
         ],
         monopolies: [""],//*
         inPrison: 0,//*
