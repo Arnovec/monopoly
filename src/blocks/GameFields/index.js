@@ -4,8 +4,6 @@ import Field from './Field/Field';
 import Realtyes from './../../data/Realtyes';
 import players_data from './../../data/Players';
 import './style.css';
-import map from "../../data/Map"
-
 
 //для поля
 // id
@@ -50,57 +48,61 @@ export default function GameFields(props) {
     const leftFieldsrow = [];
     const rigthFieldsrow = [];
 
-    for (let i = 0; i < 40; i++) {
-        let direction;
-        
-        if (i >= 0 && i <= 10) {
-            direction = "bottom";
-        } else if (i > 10 && i < 20) {
-            direction = "left";
-        } else if (i >= 20 && i <= 30) {
-            direction = "top";
-        } else if (i > 30 && i < 40) {
-            direction = "right";
-        }
-
-        let card = {
-            type: map[i].type,
-            img: map[i].img,
-        };
-        let fieldData = {
-            direction,
-            players: playersPosition[i],
-            currentPlayer: props.currentPlayer,
-        }
-        if (Realtyes[i] !== undefined) {
-            card = {
-                ...card,
-                ...Realtyes[i],
+    function renderRealtyes() {
+        for (let i = 0; i < 40; i++) {
+            let direction = "";
+    
+            if (i >= 0 && i <= 10) {
+                direction = "bottom";
+            } else if (i > 10 && i < 20) {
+                direction = "left";
+            } else if (i >= 20 && i <= 30) {
+                direction = "top";
+            } else if (i > 30 && i < 40) {
+                direction = "right";
             }
-            fieldData.isPopover = true;
-        } else {
-            card = {
-                ...card,
-                cardName: map[i].cardName,
-                costCard: map[i].costCard,
-                position: i,
-            }
-            fieldData.isPopover = false;
-        }
-        fieldData.card = card;
-        let newField = <Field key={`Field ${i}`} {...fieldData} />;
 
-        if (i >= 0 && i <= 10) {
-            downFieldsrow.unshift(newField);// в обратном порядке
-        } else if (i > 10 && i < 20) {
-            leftFieldsrow.unshift(newField); // в обратном порядке
-        } else if (i >= 20 && i <= 30) {
-            upFieldsrow.push(newField);
-        } else if (i > 30 && i < 40) {
-            rigthFieldsrow.push(newField);
-        } else {
-            console.log("Ошибка с полями: позиция элемента");
+            let fieldData = {
+                direction,
+                players: playersPosition[i],
+                currentPlayer: props.currentPlayer,
+                action: props.action,
+            }
+            if (Realtyes[i] !== undefined) {
+                card = {
+                    ...card,
+                    ...Realtyes[i],
+                }
+                fieldData.isPopover = true;
+            } else {
+                card = {
+                    ...card,
+                    cardName: map[i].cardName,
+                    costCard: map[i].costCard,
+                    position: i,
+                }
+                fieldData.isPopover = false;
+            }
+            fieldData.card = card;
+            
+            let newField = <Field key={`Field ${i}`} {...fieldData} realtyAction={props.realtyAction} />;
+    
+            if (i >= 0 && i <= 10) {
+                downFieldsrow.unshift(newField);// в обратном порядке
+            } else if (i > 10 && i < 20) {
+                leftFieldsrow.unshift(newField); // в обратном порядке
+            } else if (i >= 20 && i <= 30) {
+                upFieldsrow.push(newField);
+            } else if (i > 30 && i < 40) {
+                rigthFieldsrow.push(newField);
+            } else {
+                console.log("Ошибка с полями: позиция элемента");
+            }
         }
+    }
+
+    if(props.realtyes.length != 0) {
+        renderRealtyes();
     }
 
     return (

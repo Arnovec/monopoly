@@ -38,10 +38,6 @@ export default function StartGame(props) {
         {
             name: "Cat",
             isSelected: false,
-        },
-        {
-            name: "Diamond",
-            isSelected: false,
         }
     ]);
 

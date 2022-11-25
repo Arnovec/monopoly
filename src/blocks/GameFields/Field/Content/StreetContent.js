@@ -1,5 +1,4 @@
 import React from "react";
-import FieldPopover from "../FieldPopover";
 
 export default function StreetContent(props) {
     return (
@@ -8,9 +7,9 @@ export default function StreetContent(props) {
                 props.showPopover(props.position);
             }}
         >
-            <div 
-            className="field_color" 
-            style={{ backgroundColor: props.color}}
+            <div
+                className="field_color"
+                style={{ backgroundColor: props.color }}
             ></div>
             <div className="field_info">
                 <div className="name">

@@ -8,7 +8,7 @@ export default function FieldPopover(props) {
     for (const key in props.card.priceMap) {
         let text = "";
         if (key == -1) {
-            
+
             continue;
         }
         if (props.card.type === "realty") {

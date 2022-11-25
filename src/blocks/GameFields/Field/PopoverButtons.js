@@ -3,6 +3,15 @@ import React from "react";
 
 export default function PopoverButtons(props) {
 
+    // props.position == props.currentPlayer.position 
+    // && !props.currentPlayer.realtyList.find(el => el.cardName == props.cardName)
+    // ?   <button
+    //         onClick={ ()=> {
+    //         props.realtyAction(
+    //             "BuyRealty",
+    //             props
+    //         )
+    //     }}>купить</button>
 
     return (
         <div className={`popover_buttons`}>

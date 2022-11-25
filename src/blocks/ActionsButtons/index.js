@@ -2,7 +2,7 @@ import { Button, Space } from "antd";
 import React, { useEffect, useState } from "react";
 import Dices from "./Dices";
 import './style.css';
-import './dice.css';
+
 
 const allActions = [
     {
@@ -38,18 +38,19 @@ export default function ActionsButtons(props) {
     }, [props.actions])
 
     return (
-        <Space className="actions_container" direction="vertical">
+        <Space direction="vertical">
             {actions.map(elem  =>
                 <Button
                     className="action_button"
                     type={elem.type}
                     danger={elem.danger}
                     key={elem.name}
+                    onClick={() => props.action(elem.name)}
                 >
                     {elem.translate}
                 </Button>
             )}
-            <Dices action={props.action}></Dices>
+            
         </Space>
     );
 }
