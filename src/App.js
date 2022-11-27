@@ -56,7 +56,7 @@ export default function App() {
             }
           })
         setActions(res.data.actionBody.resultActions[0]);
-        setCurrentPlayer(res.data.actionBody.nextPlayer);
+        setCurrentPlayer(players.find(player_ => player_.playerFigure === res.data.actionBody.nextPlayer.playerFigure));
         console.log(res);
         return res;
       case 'BuyRealty':
