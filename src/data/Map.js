@@ -66,6 +66,6 @@ map[28].img = "water.png";
 
 map[38].img = "luxuryTax.png";
 map[38].cardName = "Налог на роскошь";
-map[38].costCard = "500";
+map[38].costCard = "100";
 
 export default map;

@@ -10,6 +10,16 @@ const players = [
         realtyList:[
             Realtyes[1],
             Realtyes[39],
+            Realtyes[1],
+            Realtyes[39],
+            Realtyes[1],
+            Realtyes[39],
+            Realtyes[1],
+            Realtyes[39],
+            Realtyes[1],
+            Realtyes[39],
+            Realtyes[1],
+            Realtyes[39],
         ],
         monopolies: [""],//*
         inPrison: 0,//*

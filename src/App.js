@@ -77,8 +77,13 @@ export default function App() {
               "player": currentPlayer
             }
           })
+<<<<<<< HEAD
         setActions(res.data.actionBody.nextPlayer.currentActions);
         setCurrentPlayer(players.find((el) => el.playerFigure == res.data.actionBody.nextPlayer.playerFigure));
+=======
+        setActions(res.data.actionBody.resultActions[0]);
+        setCurrentPlayer(players.find(player_ => player_.playerFigure === res.data.actionBody.nextPlayer.playerFigure));
+>>>>>>> andrew
         console.log(res);
         return res;
       case 'BuyRealty':
@@ -306,7 +311,7 @@ export default function App() {
         <ActionsButtons action={action} blockedActions={blockedActions} actions={actions}/>
         <Dices action={action}  actions={actions}></Dices>
       </Space>
-      <SadActions />
+      <SadActions action={action}/>
     </>
   );
 }
