@@ -71,6 +71,14 @@ export default function StartGame(props) {
             alert("Неправильные данные")
         }
     }
+    async function continueGame(){
+        try{
+            await props.continueGame();
+            setIsModalOpen(false);
+        } catch (e) {
+            alert("Неправильные данные")
+        }
+    }
 
     return (
         <>
@@ -91,7 +99,7 @@ export default function StartGame(props) {
                     <Space style={{ width: "100%" }} direction="vertical" align="end">
                         <Space direction="horizontal">
                             {props.token?
-                                <Button onClick={()=>{props.continueGame()}}>Продолжить</Button>         
+                                <Button onClick={()=>{continueGame()}}>Продолжить</Button>         
                             :
                                 <></>
                             }

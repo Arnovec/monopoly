@@ -133,9 +133,12 @@
 
 .player_figure {
     /* position: absolute; */
-    width: 66px;
-    height: 66px;
+    width: 80px;
+    height: 80px;
     transition: 200ms;
+    background-color: #4cff0282 ;
+    padding: 5px;
+    border-radius: 50%;
 }
 
 .popover {

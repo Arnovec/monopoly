@@ -33,7 +33,7 @@ export default function PopoverButtons(props) {
                     {
                         props.card.type === "realty" &&
                             props.card.countHouse < 5 &&
-                            props.currentPlayer.monopoly.find(elem => elem === props.card.color) !== undefined ?
+                            props.currentPlayer.monopolies.find(elem => elem === props.card.color) !== undefined ?
                             <Button
                                 type="primary"
                                 className={`popover__button`}

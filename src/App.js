@@ -77,13 +77,8 @@ export default function App() {
               "player": currentPlayer
             }
           })
-<<<<<<< HEAD
         setActions(res.data.actionBody.nextPlayer.currentActions);
         setCurrentPlayer(players.find((el) => el.playerFigure == res.data.actionBody.nextPlayer.playerFigure));
-=======
-        setActions(res.data.actionBody.resultActions[0]);
-        setCurrentPlayer(players.find(player_ => player_.playerFigure === res.data.actionBody.nextPlayer.playerFigure));
->>>>>>> andrew
         console.log(res);
         return res;
       case 'BuyRealty':
@@ -219,7 +214,7 @@ export default function App() {
         "actionBody": {
         "player": currentPlayer,
         "playerList": playersList,
-        "money": currentPlayer.credit,
+        "money": -currentPlayer.credit,
         }
         });
         setPlayers(players.map(player => {
@@ -287,15 +282,18 @@ export default function App() {
   }
 
   async function continueGame() {
-    let res = await axios.post(`http://localhost:8081/api/v1/progress/start`, players);//куда?
+    let res = await axios.get(`http://localhost:8081/api/v1/progress/continue/${token}`);//куда?
     let data = res.data;
     console.log(data.realtyList)
     setRealtyes(data.realtyList);
     setPlayers(data.players);
+    setCurrentPlayer(data.players[0]);
+    setActions(data.players[0].currentActions);
+    setBlockedActions(data.players[0].blockedActions);
   }
 
   async function end() {
-    let res = await axios.post
+    let res = await axios.get(`http://localhost:8081/api/v1/progress/endgame/${token}`);
   }
 
   return (
@@ -311,7 +309,7 @@ export default function App() {
         <ActionsButtons action={action} blockedActions={blockedActions} actions={actions}/>
         <Dices action={action}  actions={actions}></Dices>
       </Space>
-      <SadActions action={action}/>
+      <SadActions endGame={end} action={action}/>
     </>
   );
 }

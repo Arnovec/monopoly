@@ -22,7 +22,7 @@ export default function SadActions(props) {
                         size="large"
                         shape="round" 
                         onClick={()=>{
-                            props.action("EndGame") //не действие, отдельная функция
+                            props.endGame(); //не действие, отдельная функция
                         }}
                     >Конец игры</Button>
                 </Space>
