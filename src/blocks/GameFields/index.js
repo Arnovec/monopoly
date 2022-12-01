@@ -73,10 +73,13 @@ export default function GameFields(props) {
                 type: map[i].type,
                 img: map[i].img,
             };
-            if (Realtyes[i] !== undefined) {
+
+            let realty = props.realtyes.find((el) => el.position == i);
+
+            if (realty !== undefined) {
                 card = {
                     ...card,
-                    ...Realtyes[i],
+                    ...realty,
                 }
                 fieldData.isPopover = true;
             } else {

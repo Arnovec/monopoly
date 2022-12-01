@@ -33,6 +33,7 @@ const allActions = [
 
 export default function ActionsButtons(props) {
     const [actions, setActions] = useState([]);
+    console.log(props.actions)
 
     useEffect(() => {
         setActions(allActions.filter((elem1) => {
