@@ -39,7 +39,7 @@ export default function FieldPopover(props) {
     return (
         <div className={`popover`}>
             <h2 className="popover_title">{props.card.cardName}</h2>
-            {props.card.owner !== "" ?
+            {props.card.owner !== null ?
                 <p className="popover_owner">Владелец: {props.card.owner}</p>
                 :
                 <></>

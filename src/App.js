@@ -10,8 +10,9 @@ import Cookies from 'js-cookie'
 import axios from 'axios';
 import './dice.css';
 import Dices from './blocks/ActionsButtons/Dices';
-import { Space } from 'antd';
+import { Space, Modal } from 'antd';
 import SadActions from './blocks/SadActions';
+import map from './data/Map';
 
 // Запрос на старт игры, отправить на Player и карточки
 // Запрос на 
@@ -23,11 +24,22 @@ export default function App() {
   const [currentPlayer, setCurrentPlayer] = useState(players[0]);
   const [resultDropDice, setResultDropDice] = useState([]);
   const [token, setToken] = useState(Cookies.get('token'));
-  const [actions, setActions] = useState(["DropDice"])
+  const [actions, setActions] = useState(["DropDice"]);
+  const [blockedActions, setBlockedActions] = useState([]);
 
   // Долг игрока credit
   // Список доступных действий и список заблокированных
 
+  function messageCard(title, description){
+    Modal.info({
+    title: 'Карта ' + title,
+    content: (
+    <div>
+    <p>{description}</p>
+    </div>
+    )
+    });
+  }
 
   async function action(type, actionData) {
     let res;
@@ -40,6 +52,11 @@ export default function App() {
               "player": currentPlayer
             }
           })
+        if (res.data.actionBody.Chance) {
+          messageCard('Шанса', res.data.actionBody.Chance.description)
+        } else if (res.data.actionBody.CommunityChest) {
+          messageCard('Общественной казны', res.data.actionBody.CommunityChest.description)
+        }
         setPlayers(players.map(player => {
           if (player.playerFigure == currentPlayer.playerFigure) {
             return res.data.actionBody.player
@@ -48,6 +65,7 @@ export default function App() {
           }
         }));
         setActions(res.data.actionBody.player.currentActions);
+        setBlockedActions(res.data.actionBody.player.blockedActions);
         setCurrentPlayer(res.data.actionBody.player);
         console.log(res);
         return res;
@@ -59,8 +77,8 @@ export default function App() {
               "player": currentPlayer
             }
           })
-        setActions(res.data.actionBody.player.currentActions);
-        setCurrentPlayer(res.data.actionBody.nextPlayer);
+        setActions(res.data.actionBody.nextPlayer.currentActions);
+        setCurrentPlayer(players.find((el) => el.playerFigure == res.data.actionBody.nextPlayer.playerFigure));
         console.log(res);
         return res;
       case 'BuyRealty':
@@ -80,6 +98,7 @@ export default function App() {
             return player
           }
         }));
+        setActions(res.data.actionBody.player.currentActions);
         setRealtyes(res.data.actionBody.realtyList);
         setCurrentPlayer(res.data.actionBody.player);
         return res;
@@ -100,9 +119,29 @@ export default function App() {
           }
         }));
         setRealtyes(res.data.actionBody.realtyList);
+        setActions(res.data.actionBody.player.currentActions);
         setCurrentPlayer(res.data.actionBody.player);
         return res;
       case "LeavePrisonByMoney":
+        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
+          {
+            "actionType": type,
+            "actionBody": {
+              "player": currentPlayer
+            }
+          })
+        setPlayers(players.map(player => {
+          if (player.playerFigure == currentPlayer.playerFigure) {
+            return res.data.actionBody.player
+          } else {
+            return player
+          }
+        }));
+        setActions(res.data.actionBody.player.currentActions);
+        setCurrentPlayer(res.data.actionBody.player);
+        console.log(res);
+        return res;
+      case "LeavePrisonByCard":
         res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
           {
             "actionType": type,
@@ -160,6 +199,35 @@ export default function App() {
         setCurrentPlayer(res.data.actionBody.player);
         console.log(res);
         return res;
+      case "MoneyOperation" :
+        const playersList = [currentPlayer];
+        if(map[currentPlayer.position].type == "realty"){
+          const ownerFigure = realtyes.find(realty_ => realty_.position == currentPlayer.position);
+          playersList.push(players.find(player_ => player_.playerFigure == ownerFigure));
+        }
+        if ([4, 38].includes(currentPlayer.position)) {
+
+        }
+        res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
+        {
+        "actionType": type,
+        "actionBody": {
+        "player": currentPlayer,
+        "playerList": playersList,
+        "money": currentPlayer.credit,
+        }
+        });
+        setPlayers(players.map(player => {
+        const newPlayer = res.data.actionBody.playerList.find(el => el.playerFigure == player.playerFigure)
+          if (newPlayer !== undefined) {
+            return newPlayer
+          } else {
+            return player
+          }
+        }));
+        setActions(res.data.actionBody.player.currentActions);
+        setBlockedActions(res.data.actionBody.player.blockedActions);
+        return res;
       case "Swap":
         res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
           {
@@ -207,9 +275,18 @@ export default function App() {
     let data = res.data;
     console.log(data.realtyList)
     setToken(data.token);
+    Cookies.set("token", data.token);
     setRealtyes(data.realtyList);
     setPlayers(data.players);
     setCurrentPlayer(data.players[0]);
+  }
+
+  async function continueGame() {
+    let res = await axios.post(`http://localhost:8081/api/v1/progress/start`, players);//куда?
+    let data = res.data;
+    console.log(data.realtyList)
+    setRealtyes(data.realtyList);
+    setPlayers(data.players);
   }
 
   async function end() {
@@ -224,10 +301,10 @@ export default function App() {
         currentPlayer={currentPlayer}
       />
       <GameFields action={action} realtyes={realtyes} players={players} currentPlayer={currentPlayer} />
-      <StartGame action={start} />
+      <StartGame action={start} token={token} continueGame={continueGame} />
       <Space className="actions_container" direction="vertical">
-        <ActionsButtons action={action} actions={actions}/>
-        <Dices action={action} actions={actions}></Dices>
+        <ActionsButtons action={action} blockedActions={blockedActions} actions={actions}/>
+        <Dices action={action}  actions={actions}></Dices>
       </Space>
       <SadActions />
     </>

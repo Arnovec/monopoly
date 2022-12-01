@@ -90,8 +90,12 @@ export default function StartGame(props) {
                     )}
                     <Space style={{ width: "100%" }} direction="vertical" align="end">
                         <Space direction="horizontal">
-                            <Button>Продолжить</Button>
-                            <Button onClick={() => { 
+                            {props.token?
+                                <Button onClick={()=>{props.continueGame()}}>Продолжить</Button>         
+                            :
+                                <></>
+                            }
+                            <Button type="primary" onClick={() => { 
                                 start();
                             }}>Начать</Button>
                         </Space>
