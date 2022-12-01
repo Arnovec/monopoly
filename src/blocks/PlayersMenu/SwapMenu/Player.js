@@ -5,8 +5,9 @@ const { Text } = Typography;
 
 export default function Player(props) {
     return (
-        <Space direction="horizontal">
-            <Text>{props.playerFigure}</Text>
+        <div className='swap_realtys_row'>
+            <Text style={{width: 90}}>{props.playerFigure}</Text>
+            <div className='swap_realtys_row'>
             {props.realtyList.map(realty => {
                 let isFind = props.choosenRealty.find(choosenRealty_ => choosenRealty_.position === realty.position);
                 isFind = isFind === undefined ? false : true;
@@ -26,6 +27,7 @@ export default function Player(props) {
                     />
                 );
             })}
-        </Space>
+            </div>
+        </div>
     )
 }

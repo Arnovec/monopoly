@@ -210,7 +210,7 @@ export default function App() {
         <ActionsButtons action={action} actions={actions} />
         <Dices action={action} actions={actions}></Dices>
       </Space>
-      <SadActions />
+      <SadActions action={action}/>
     </>
   );
 }

@@ -30,46 +30,56 @@ export default function PopoverButtons(props) {
                 >Выкупить</Button>
                 :
                 <>
-                    <Button
-                        type="primary"
-                        className={`popover__button`}
-                        onClick={() => {
-                            props.action(
-                                "BuyHouse",
-                                {
-                                    realtyCard: props.card
-                                }
-                            )
-                        }}
-                    >+Дом</Button>
-                    {props.card.countHouse == 0 ?
-                        <Button
-                            danger
-                            type="primary"
-                            className={`popover__button`}
-                            onClick={() => {
-                                props.action(
-                                    "SellRealty",
-                                    {
-                                        realtyCard: props.card
-                                    }
-                                )
-                            }}
-                        >Заложить</Button>
-                        :
-                        <Button
-                            danger
-                            type="primary"
-                            className={`popover__button`}
-                            onClick={() => {
-                                props.action(
-                                    "SellHouse",
-                                    {
-                                        realtyCard: props.card
-                                    }
-                                )
-                            }}
-                        >-Дом</Button>
+                    {
+                        props.card.type === "realty" &&
+                            props.card.countHouse < 5 &&
+                            props.currentPlayer.monopoly.find(elem => elem === props.card.color) !== undefined ?
+                            <Button
+                                type="primary"
+                                className={`popover__button`}
+                                onClick={() => {
+                                    props.action(
+                                        "BuyHouse",
+                                        {
+                                            realtyCard: props.card
+                                        }
+                                    )
+                                }}
+                            >+Дом</Button>
+                            :
+                            <></>
+                    }
+
+                    {
+                        props.card.type !== "realty" ||
+                            props.card.countHouse == 0 ?
+                            <Button
+                                danger
+                                type="primary"
+                                className={`popover__button`}
+                                onClick={() => {
+                                    props.action(
+                                        "SellRealty",
+                                        {
+                                            realtyCard: props.card
+                                        }
+                                    )
+                                }}
+                            >Заложить</Button>
+                            :
+                            <Button
+                                danger
+                                type="primary"
+                                className={`popover__button`}
+                                onClick={() => {
+                                    props.action(
+                                        "SellHouse",
+                                        {
+                                            realtyCard: props.card
+                                        }
+                                    )
+                                }}
+                            >-Дом</Button>
                     }
                 </>
             }
