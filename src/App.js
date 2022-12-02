@@ -28,7 +28,7 @@ export default function App() {
   const [token, setToken] = useState(Cookies.get('token'));
   const [actions, setActions] = useState(["DropDice"]);
   const [blockedActions, setBlockedActions] = useState([]);
-  const [isEndGame, setIsEndGame] = useState(true);
+  const [isEndGame, setIsEndGame] = useState(false);
   const [gameHistory, setGameHistory] = useState();
 
   // Долг игрока credit
@@ -264,11 +264,10 @@ export default function App() {
               "player": currentPlayer,
             }
           })
-        setPlayers(players.map(player => {
-          if (player.playerFigure != currentPlayer.playerFigure) {
-            return player
-          }
-        }));
+        setPlayers(res.data.actionBody.playerList);
+        setRealtyes(res.data.actionBody.realtyList);
+        setCurrentPlayer(res.data.actionBody.playerList.find((el) => el.playerFigure == res.data.actionBody.nextPlayer.playerFigure));
+        if (res.data.actionBody.playerList.length === 1) end();
         console.log(res);
         return res;
     }
@@ -277,7 +276,6 @@ export default function App() {
   async function start(players) {
     let res = await axios.post(`http://localhost:8081/api/v1/progress/start`, players);
     let data = res.data;
-    console.log(data.realtyList)
     setToken(data.token);
     Cookies.set("token", data.token);
     setRealtyes(data.realtyList);
@@ -288,7 +286,6 @@ export default function App() {
   async function continueGame() {
     let res = await axios.get(`http://localhost:8081/api/v1/progress/continue/${token}`);//куда?
     let data = res.data;
-    console.log(data.realtyList)
     setRealtyes(data.realtyList);
     setPlayers(data.players);
     setCurrentPlayer(data.players[0]);
@@ -298,6 +295,10 @@ export default function App() {
 
   async function end() {
     let res = await axios.get(`http://localhost:8081/api/v1/progress/endgame/${token}`);
+    console.log(res);
+    setGameHistory(res.data);
+    setIsEndGame(true);
+    Cookies.remove('token');
   }
 
   return (
@@ -314,7 +315,7 @@ export default function App() {
         <Dices action={action} actions={actions}></Dices>
       </Space>
       <SadActions endGame={end} action={action} />
-      <Modal title="История игры" open={isEndGame} footer={null}>
+      <Modal title="История игры" closable={false} open={isEndGame} footer={null}>
         <div className='history_container'>
           {gameHistory !== undefined ?
             gameHistory.map((elem, index) =>
