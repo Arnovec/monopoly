@@ -28,7 +28,7 @@ export default function App() {
   const [token, setToken] = useState(Cookies.get('token'));
   const [actions, setActions] = useState(["DropDice"]);
   const [blockedActions, setBlockedActions] = useState([]);
-  const [isEndGame, setIsEndGame] = useState(false);
+  const [isEndGame, setIsEndGame] = useState(true);
   const [gameHistory, setGameHistory] = useState();
 
   // Долг игрока credit
@@ -314,17 +314,19 @@ export default function App() {
         <Dices action={action} actions={actions}></Dices>
       </Space>
       <SadActions endGame={end} action={action} />
-      <Modal title="Basic Modal" open={isEndGame} footer={null}>
-        {gameHistory !== undefined ?
-          gameHistory.map((elem, index) =>
-            <Space key={`game history ${index}`} direction="horizontal">
-              <Text>{index + 1}</Text>
-              <Text>{elem}</Text>
-            </Space>
-          )
-          :
-          <></>
-        }
+      <Modal title="История игры" open={isEndGame} footer={null}>
+        <div className='history_container'>
+          {gameHistory !== undefined ?
+            gameHistory.map((elem, index) =>
+              <div key={`game history ${index}`} className="history_row" direction="horizontal">
+                <Text className='history_text'>{index + 1}</Text>
+                <Text className='history_text'>{elem}</Text>
+              </div>
+            )
+            :
+            <></>
+          }
+        </div>
       </Modal>
     </>
   );

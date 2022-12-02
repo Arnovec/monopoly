@@ -7,5 +7,18 @@
   flex-direction: column;
 }
 
+.history_container{
+  overflow: auto;
+  height: 50vh;
+}
 
+.history_row{
+  display: flex;
+  flex-direction: row;
+}
+
+.history_text{
+  white-space: nowrap;
+  padding: 0 10px;
+}
 
