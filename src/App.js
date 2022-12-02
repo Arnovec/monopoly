@@ -20,7 +20,7 @@ const { Text } = Typography;
 // Запрос на 
 
 export default function App() {
-  const [scrolable, setScrolablelock] = useSet(false);
+  const [scrolable, setScrolablelock] = useState(false);
   const [players, setPlayers] = useState([]);
   const [realtyes, setRealtyes] = useState([]);
   const [currentPlayer, setCurrentPlayer] = useState(players[0]);
