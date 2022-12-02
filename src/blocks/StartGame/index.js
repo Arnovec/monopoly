@@ -2,7 +2,7 @@ import { Button, Modal, Radio, Space } from "antd";
 import React, { useEffect, useState } from "react";
 
 export default function StartGame(props) {
-    const [isModalOpen, setIsModalOpen] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [sendPlayers, setSendPlayers] = useState([]);
 

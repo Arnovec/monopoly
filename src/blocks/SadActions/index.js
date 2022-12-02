@@ -5,7 +5,7 @@ import './style.css';
 export default function SadActions(props) {
     return (
         <Space className="sad_actions_container">
-            <Popover placement={"top"} content={
+            <Popover placement={"right"} content={
                 <Space>
                     <Button
                         type="primary"

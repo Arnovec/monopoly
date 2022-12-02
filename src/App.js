@@ -28,7 +28,7 @@ export default function App() {
   const [token, setToken] = useState(Cookies.get('token'));
   const [actions, setActions] = useState(["DropDice"]);
   const [blockedActions, setBlockedActions] = useState([]);
-  const [isEndGame, setIsEndGame] = useState(true);
+  const [isEndGame, setIsEndGame] = useState(false);
   const [gameHistory, setGameHistory] = useState();
 
   // Долг игрока credit
@@ -82,6 +82,7 @@ export default function App() {
             }
           })
         setActions(res.data.actionBody.nextPlayer.currentActions);
+        setBlockedActions(res.data.actionBody.nextPlayer.blockedActions);
         setCurrentPlayer(players.find((el) => el.playerFigure == res.data.actionBody.nextPlayer.playerFigure));
         console.log(res);
         return res;
@@ -103,6 +104,7 @@ export default function App() {
           }
         }));
         setActions(res.data.actionBody.player.currentActions);
+        setBlockedActions(res.data.actionBody.player.blockedActions);
         setRealtyes(res.data.actionBody.realtyList);
         setCurrentPlayer(res.data.actionBody.player);
         return res;
@@ -124,6 +126,7 @@ export default function App() {
         }));
         setRealtyes(res.data.actionBody.realtyList);
         setActions(res.data.actionBody.player.currentActions);
+        setBlockedActions(res.data.actionBody.player.blockedActions);
         setCurrentPlayer(res.data.actionBody.player);
         return res;
       case "LeavePrisonByMoney":
@@ -142,6 +145,7 @@ export default function App() {
           }
         }));
         setActions(res.data.actionBody.player.currentActions);
+        setBlockedActions(res.data.actionBody.player.blockedActions);
         setCurrentPlayer(res.data.actionBody.player);
         console.log(res);
         return res;
@@ -161,6 +165,7 @@ export default function App() {
           }
         }));
         setActions(res.data.actionBody.player.currentActions);
+        setBlockedActions(res.data.actionBody.player.currentActions);
         setCurrentPlayer(res.data.actionBody.player);
         console.log(res);
         return res;
@@ -182,6 +187,8 @@ export default function App() {
         }));
         setRealtyes(res.data.actionBody.realtyList);
         setCurrentPlayer(res.data.actionBody.player);
+        setActions(res.data.actionBody.player.currentActions);
+        setBlockedActions(res.data.actionBody.player.currentActions);
         return res;
       case 'SellRealty':
         res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
@@ -201,16 +208,14 @@ export default function App() {
         }));
         setRealtyes(res.data.actionBody.realtyList);
         setCurrentPlayer(res.data.actionBody.player);
-        console.log(res);
+        setActions(res.data.actionBody.player.currentActions);
+        setBlockedActions(res.data.actionBody.player.currentActions);
         return res;
       case "MoneyOperation":
         const playersList = [currentPlayer];
         if (map[currentPlayer.position].type == "realty") {
-          const ownerFigure = realtyes.find(realty_ => realty_.position == currentPlayer.position);
+          const ownerFigure = realtyes.find(realty_ => realty_.position == currentPlayer.position).owner;
           playersList.push(players.find(player_ => player_.playerFigure == ownerFigure));
-        }
-        if ([4, 38].includes(currentPlayer.position)) {
-
         }
         res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
           {
@@ -229,8 +234,9 @@ export default function App() {
             return player
           }
         }));
-        setActions(res.data.actionBody.player.currentActions);
-        setBlockedActions(res.data.actionBody.player.blockedActions);
+        setCurrentPlayer(res.data.actionBody.playerList[0]);
+        setActions(res.data.actionBody.playerList[0].currentActions);
+        setBlockedActions(res.data.actionBody.playerList[0].blockedActions);
         return res;
       case "Swap":
         res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
@@ -255,6 +261,8 @@ export default function App() {
         }));
         setRealtyes(res.data.actionBody.realtyList);
         setCurrentPlayer(res.data.actionBody.player1);
+        setActions(res.data.actionBody.player1.currentActions);
+        setBlockedActions(res.data.actionBody.player1.currentActions);
         return res;
       case 'GiveUp': // сдаться
         res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
@@ -264,11 +272,10 @@ export default function App() {
               "player": currentPlayer,
             }
           })
-        setPlayers(players.map(player => {
-          if (player.playerFigure != currentPlayer.playerFigure) {
-            return player
-          }
-        }));
+        setPlayers(res.data.actionBody.playerList);
+        setRealtyes(res.data.actionBody.realtyList);
+        setCurrentPlayer(res.data.actionBody.playerList.find((el) => el.playerFigure == res.data.actionBody.nextPlayer.playerFigure));
+        if (res.data.actionBody.playerList.length === 1) end();
         console.log(res);
         return res;
     }
@@ -314,7 +321,7 @@ export default function App() {
         <Dices action={action} actions={actions}></Dices>
       </Space>
       <SadActions endGame={end} action={action} />
-      <Modal title="История игры" open={isEndGame} footer={null}>
+      <Modal width={1000} title="История игры" open={isEndGame} footer={null}>
         <div className='history_container'>
           {gameHistory !== undefined ?
             gameHistory.map((elem, index) =>
