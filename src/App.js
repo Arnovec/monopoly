@@ -10,9 +10,11 @@ import Cookies from 'js-cookie'
 import axios from 'axios';
 import './dice.css';
 import Dices from './blocks/ActionsButtons/Dices';
-import { Space, Modal } from 'antd';
+import { Space, Modal, Typography } from 'antd';
 import SadActions from './blocks/SadActions';
 import map from './data/Map';
+
+const { Text } = Typography;
 
 // Запрос на старт игры, отправить на Player и карточки
 // Запрос на 
@@ -26,18 +28,20 @@ export default function App() {
   const [token, setToken] = useState(Cookies.get('token'));
   const [actions, setActions] = useState(["DropDice"]);
   const [blockedActions, setBlockedActions] = useState([]);
+  const [isEndGame, setIsEndGame] = useState(false);
+  const [gameHistory, setGameHistory] = useState();
 
   // Долг игрока credit
   // Список доступных действий и список заблокированных
 
-  function messageCard(title, description){
+  function messageCard(title, description) {
     Modal.info({
-    title: 'Карта ' + title,
-    content: (
-    <div>
-    <p>{description}</p>
-    </div>
-    )
+      title: 'Карта ' + title,
+      content: (
+        <div>
+          <p>{description}</p>
+        </div>
+      )
     });
   }
 
@@ -199,9 +203,9 @@ export default function App() {
         setCurrentPlayer(res.data.actionBody.player);
         console.log(res);
         return res;
-      case "MoneyOperation" :
+      case "MoneyOperation":
         const playersList = [currentPlayer];
-        if(map[currentPlayer.position].type == "realty"){
+        if (map[currentPlayer.position].type == "realty") {
           const ownerFigure = realtyes.find(realty_ => realty_.position == currentPlayer.position);
           playersList.push(players.find(player_ => player_.playerFigure == ownerFigure));
         }
@@ -209,16 +213,16 @@ export default function App() {
 
         }
         res = await axios.put(`http://localhost:8081/api/v1/progress/action/${token}`,
-        {
-        "actionType": type,
-        "actionBody": {
-        "player": currentPlayer,
-        "playerList": playersList,
-        "money": -currentPlayer.credit,
-        }
-        });
+          {
+            "actionType": type,
+            "actionBody": {
+              "player": currentPlayer,
+              "playerList": playersList,
+              "money": -currentPlayer.credit,
+            }
+          });
         setPlayers(players.map(player => {
-        const newPlayer = res.data.actionBody.playerList.find(el => el.playerFigure == player.playerFigure)
+          const newPlayer = res.data.actionBody.playerList.find(el => el.playerFigure == player.playerFigure)
           if (newPlayer !== undefined) {
             return newPlayer
           } else {
@@ -306,10 +310,22 @@ export default function App() {
       <GameFields action={action} realtyes={realtyes} players={players} currentPlayer={currentPlayer} />
       <StartGame action={start} token={token} continueGame={continueGame} />
       <Space className="actions_container" direction="vertical">
-        <ActionsButtons action={action} blockedActions={blockedActions} actions={actions}/>
-        <Dices action={action}  actions={actions}></Dices>
+        <ActionsButtons action={action} blockedActions={blockedActions} actions={actions} />
+        <Dices action={action} actions={actions}></Dices>
       </Space>
-      <SadActions endGame={end} action={action}/>
+      <SadActions endGame={end} action={action} />
+      <Modal title="Basic Modal" open={isEndGame} footer={null}>
+        {gameHistory !== undefined ?
+          gameHistory.map((elem, index) =>
+            <Space key={`game history ${index}`} direction="horizontal">
+              <Text>{index + 1}</Text>
+              <Text>{elem}</Text>
+            </Space>
+          )
+          :
+          <></>
+        }
+      </Modal>
     </>
   );
 }

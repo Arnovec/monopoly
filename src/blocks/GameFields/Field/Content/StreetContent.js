@@ -1,4 +1,5 @@
 import React from "react";
+import HouseContainer from './HouseContainer';
 
 export default function StreetContent(props) {
     return (
@@ -10,7 +11,9 @@ export default function StreetContent(props) {
             <div
                 className="field_color"
                 style={{ backgroundColor: props.color }}
-            ></div>
+            >
+                <HouseContainer {...props}/>
+            </div>
             <div className="field_info">
                 <div className="name">
                     {props.cardName}

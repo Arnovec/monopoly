@@ -6,10 +6,10 @@ export default function PlayersContainer(props) {
     let row = [];
     if (props.players !== undefined) {
         for (let i = 0; i < props.players.length; i++) {
-            row.push(<PlayerFigure key={props.players[i].playerFigure} {...props.players[i]} />);
+            row.push(<PlayerFigure key={"figure " + props.players[i].playerFigure} {...props.players[i]} />);
             if (i % 3 == 2) {
                 playersRows.push(
-                    <div className="player_figure_row">
+                    <div key={props.card.cardName + " row " + i} className="player_figure_row">
                         {row}
                     </div>
                 );
@@ -18,7 +18,7 @@ export default function PlayersContainer(props) {
         }
         if (props.players.length % 3 != 0) {
             playersRows.push(
-                <div className="player_figure_row">
+                <div key={props.card.cardName + " row " + 3} className="player_figure_row">
                     {row}
                 </div>
             );

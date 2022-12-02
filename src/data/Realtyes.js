@@ -1,5 +1,5 @@
-const Realtyes = {
-    1: {
+const Realtyes = [
+    {
         position: 1,
         cardName: "Пермь",
         owner: "",
@@ -11,12 +11,12 @@ const Realtyes = {
             4: 500,
             5: 600
         },
-        countHouse: 0,//* c -1
+        countHouse: 5,//* c -1
         costCard: 150,
         costHouse: 100,
         color: "red"
     },
-    3: {
+    {
         position: 3,
         cardName: "Саратов",
         owner: "Car",
@@ -33,7 +33,7 @@ const Realtyes = {
         costHouse: 100,
         color: "red"
     },
-    5: {
+    {
         position: 5,
         cardName: "Восточный вокзал",
         owner: "Car",
@@ -48,7 +48,7 @@ const Realtyes = {
         costHouse: 0,
         color: "station"
     },
-    12: {
+    {
         position: 12,
         cardName: "Электрическая компания",
         owner: "Car",
@@ -61,7 +61,7 @@ const Realtyes = {
         costHouse: 0,
         color: "utilities"
     },
-    39: {
+    {
         position: 39,
         cardName: "Саратов",
         owner: "Car",
@@ -78,6 +78,6 @@ const Realtyes = {
         costHouse: 100,
         color: "blue"
     }
-}
+];
 
 export default Realtyes
