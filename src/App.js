@@ -20,7 +20,7 @@ const { Text } = Typography;
 // Запрос на 
 
 export default function App() {
-
+  const [scrolable, setScrolablelock] = useSet(false);
   const [players, setPlayers] = useState([]);
   const [realtyes, setRealtyes] = useState([]);
   const [currentPlayer, setCurrentPlayer] = useState(players[0]);
@@ -284,6 +284,7 @@ export default function App() {
   async function start(players) {
     let res = await axios.post(`http://localhost:8081/api/v1/progress/start`, players);
     let data = res.data;
+    setScrolablelock(true);
     setToken(data.token);
     Cookies.set("token", data.token);
     setRealtyes(data.realtyList);
@@ -294,6 +295,7 @@ export default function App() {
   async function continueGame() {
     let res = await axios.get(`http://localhost:8081/api/v1/progress/continue/${token}`);//куда?
     let data = res.data;
+    setScrolablelock(true);
     setRealtyes(data.realtyList);
     setPlayers(data.players);
     setCurrentPlayer(data.players[0]);
@@ -304,6 +306,7 @@ export default function App() {
   async function end() {
     let res = await axios.get(`http://localhost:8081/api/v1/progress/endgame/${token}`);
     console.log(res);
+    setScrolablelock(false);
     setGameHistory(res.data);
     setIsEndGame(true);
     Cookies.remove('token');
@@ -316,7 +319,7 @@ export default function App() {
         players={players}
         currentPlayer={currentPlayer}
       />
-      <GameFields action={action} realtyes={realtyes} players={players} currentPlayer={currentPlayer} />
+      <GameFields scrolable={scrolable} action={action} realtyes={realtyes} players={players} currentPlayer={currentPlayer} />
       <StartGame action={start} token={token} continueGame={continueGame} />
       <Space className="actions_container" direction="vertical">
         <ActionsButtons action={action} blockedActions={blockedActions} actions={actions} />

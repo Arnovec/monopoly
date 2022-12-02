@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from "framer-motion";
 import Field from './Field/Field';
 import Realtyes from './../../data/Realtyes';
@@ -18,8 +18,8 @@ export default function GameFields(props) {
     //возможность отдалять и приближать игровое поле
     const [scale, setScale] = useState(1);
 
-    useEffect(() => {
-        document.addEventListener("wheel", (event) => {
+    const scroling = useMemo(() => {
+        return (event) => {
             const delta = event.deltaY || event.detail;
             if (delta < 0) {
                 setScale(prev => prev < 1 ? prev + 0.1 : prev);
@@ -27,8 +27,18 @@ export default function GameFields(props) {
             if (delta > 0) {
                 setScale(prev => prev > 0.4 ? prev - 0.1 : prev);
             }
-        });
+        }
     }, []);
+
+    useEffect(() => {
+        if (props.scrolable) {
+
+            document.addEventListener("wheel", scroling);
+            return () => {
+                document.removeEventListener("wheel", scroling);
+            };
+        }
+    }, [props.scrolable]);
 
     // отслеживание позиций игроков
     const [playersPosition, setPlayersPosition] = useState([]);
@@ -52,7 +62,7 @@ export default function GameFields(props) {
     function renderRealtyes() {
         for (let i = 0; i < 40; i++) {
             let direction = "";
-    
+
             if (i >= 0 && i <= 10) {
                 direction = "bottom";
             } else if (i > 10 && i < 20) {
@@ -92,9 +102,9 @@ export default function GameFields(props) {
                 fieldData.isPopover = false;
             }
             fieldData.card = card;
-            
+
             let newField = <Field key={`Field ${i}`} {...fieldData} realtyAction={props.realtyAction} />;
-    
+
             if (i >= 0 && i <= 10) {
                 downFieldsrow.unshift(newField);// в обратном порядке
             } else if (i > 10 && i < 20) {
@@ -109,7 +119,7 @@ export default function GameFields(props) {
         }
     }
 
-    if(props.realtyes.length != 0) {
+    if (props.realtyes.length != 0) {
         renderRealtyes();
     }
 
