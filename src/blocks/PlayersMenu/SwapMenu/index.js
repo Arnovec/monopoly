@@ -73,6 +73,7 @@ export default function SwapMenu(props) {
                                         money: money * swapDirection,
                                     }
                                 )
+                                props.setChosenPlayer(undefined);
                             }}
                         >Обменять</Button>
                     </Space>

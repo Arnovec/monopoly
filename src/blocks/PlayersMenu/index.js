@@ -11,6 +11,7 @@ export default function PlayersMenu(props) {
             <div className="players_menu">
                 {props.players.map(elem => {
                     const isCurrentPlayer = elem === props.currentPlayer;
+                    console.log(elem)
                     return (
                         <Player
                             onClick={() => {
