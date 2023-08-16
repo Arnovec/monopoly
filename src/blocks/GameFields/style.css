@@ -1,0 +1,209 @@
+.game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.field {
+    position: relative;
+    box-sizing: border-box;
+    width: 200px;
+    height: 300px;
+    background-color: rgb(179, 179, 179); /*выбрать*/
+    background-color: rgb(233, 233, 233);
+    border: 1px solid black;
+    border-radius: 5px;
+    /* overflow: hidden; */
+    z-index: 10;
+}
+
+.field_content {
+    box-sizing: border-box;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.field_side {
+    display: flex;
+    width: 300px;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+}
+
+.field_angel {
+    width: 300px;
+}
+
+.angel_img {
+    width: 100%;
+    height: 100%;
+}
+
+.field_color {
+    height: 85px;
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid black;
+}
+
+.field_info {
+    display: flex;
+    flex-direction: column;
+    height: 212px;
+    width: 200px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* .field_info_left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transform: rotate(90deg);
+}
+
+.field_info_right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transform: rotate(270deg);
+} */
+
+.field_with_img {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left {
+    transform: rotate(90deg);
+}
+
+.right {
+    transform: rotate(270deg);
+}
+
+.field_img_container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.name,
+.cost {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+}
+
+.name{
+    height: 50px;
+    width: 200px;
+}
+
+.field_img {
+    width: 150px;
+    height: 200px;
+}
+
+.house_container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.house{
+    width: 50px;
+    height: 50px;
+}
+
+.hotel{
+    width: 80px;
+    height: 80px;
+}
+
+.player_figure_container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.player_figure_row {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.player_figure {
+    /* position: absolute; */
+    width: 80px;
+    height: 80px;
+    transition: 200ms;
+    background-color: #4cff0282 ;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.popover {
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 5px;
+    z-index: 100;
+}
+
+.popover_title,
+.popover_owner, 
+.popover_rent{
+    width: 100%;
+    text-align: center;
+}
+
+.popover_title{
+    margin: 10px 0 0 0;
+}
+
+.popover_owner{
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.popover_rent{
+    margin: 10px 0;
+}
+
+.popover_rent__current{
+    color: rgb(116, 0, 0);
+    font-weight: 700;
+}
+
+.popover_buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.popover__button {
+    width: 50%;
+}
+
+.big_place {
+    flex: 1;
+    background-color: rgb(255, 198, 93);
+    background-color: rgb(152, 197, 201); /*выбрать*/
+}
